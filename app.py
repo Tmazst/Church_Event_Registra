@@ -215,7 +215,7 @@ def reg_confirmation():
         app.config["MAIL_USE_TLS"] = True
         # Creditentials saved in environmental variables
         em = app.config["MAIL_USERNAME"] = "pro.dignitron@gmail.com"  # os.getenv("MAIL")
-        app.config["MAIL_PASSWORD"] =  os.getenv("PWD")
+        app.config["MAIL_PASSWORD"] = "abngvekbagyvosbw" #os.getenv("PWD")
         app.config["MAIL_DEFAULT_SENDER"] = "noreply@gmail.com"
 
         mail = Mail(app)
@@ -541,7 +541,7 @@ def reset_request():
                 app.config["MAIL_PORT"] = 587
                 app.config["MAIL_USE_TLS"] = True
                 em = app.config["MAIL_USERNAME"] = os.getenv("EMAIL")
-                app.config["MAIL_PASSWORD"] =  os.getenv("PWD")
+                app.config["MAIL_PASSWORD"] = "abngvekbagyvosbw" # os.getenv("PWD")
 
                 mail = Mail(app)
 
@@ -624,7 +624,7 @@ def verification():
         app.config["MAIL_USE_TLS"] = True
         # Creditentials saved in environmental variables
         em = app.config["MAIL_USERNAME"] = "pro.dignitron@gmail.com"  # os.getenv("MAIL")
-        app.config["MAIL_PASSWORD"] = os.getenv("PWD")
+        app.config["MAIL_PASSWORD"] =  "abngvekbagyvosbw" #os.getenv("PWD")
         app.config["MAIL_DEFAULT_SENDER"] = "noreply@gmail.com"
 
         mail = Mail(app)
