@@ -68,7 +68,7 @@ class user_class:
         except itsdangerous.BadSignature:
             flash('Token is Invalid', 'error')
         except:
-            return f'Something Went Wrong'  # f'Token {user_id} not accessed here is the outcome user'
+            return f'Something Went Wrong'
 
         return user_id
 
