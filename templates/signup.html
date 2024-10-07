@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .form-fields{
+        display:flex;
+        flex-direction:column;
+    }
+    section{ background-image:url(static/images/bg_service.png) }
+</style>
+<div class="flash-messages" id="">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+          {% for  category, message in messages %}
+              <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+          {% endfor %}
+      {% endif %}
+  {% endwith %}
+</div>
+<br><br>
+
+<div class="container">
+   
+  <div class="login-cont flex-general">
+    
+      <form style="background-color:;flex-direction:column;z-index:1000;" class="" _lpchecked="1" action="" method="post">
+        <h1 style="float:left;text-align: left;">Hello,<br><span style="font-size:medium;color:rgb(102, 102, 102);">Please Sign-up</span></h1>
+            {{register.hidden_tag()}}
+            <div class="group">
+                {{ register.name(class="form-control",placeholder="name") }}<br>
+                {% if register.name.errors %}
+                  {% for error in register.name.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+               {% endif %}
+          </div>
+            <div class="group">
+                  {{ register.email(class="form-control",placeholder="Email") }}<br>
+                  {% if register.email.errors %}
+                    {% for error in register.email.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+                 {% endif %}
+            </div>
+            <div class="group">
+                 {{ register.password(id="password",class="form-control",placeholder="Password")}}<br>
+                 {% if register.password.errors %}
+                    {% for error in register.password.errors %}<span class="span-error" >*Password {{error}}</span>
+                    {% endfor %}
+                 {% endif %}
+            </div>
+
+            <div class="group">
+                {{ register.confirm(class="form-control",placeholder="confirm")}}<br>
+                {% if register.confirm.errors %}
+                   {% for error in register.confirm.errors %}<span class="span-error" >*{{error}}</span>
+                   {% endfor %}
+                {% endif %}
+           </div>
+           <label style="color:coral;font-weight: 500;">Password Strength Checker</label>
+           <div class="power-container">
+            
+            <div id="power-point" class="power-point"></div>
+        </div><br>
+            <div style="" class="group">
+                 <div>{{ register.submit(class="btns") }}</div><br>
+                 <!--<input class="btns" type="submit" value="Create Account" />-->
+                 <div><a class="slinks-li" href="/login">Login Instead?</a></div>
+            </div>
+            <div style="" class="group">
+                <!-- <div><a class="slinks-li" href="/register">Forgot Password?</a></div> -->
+            </div>
+
+      </form>
+  </div>
+</div>
+
+<script>
+    //Password Checker
+    let password = document.getElementById("password");
+    let power = document.getElementById("power-point");
+    confirm_password = document.getElementById("confirm_password");
+    
+    if (password && power) {
+        password.oninput = function () {
+            let point = 0;
+            let value = password.value;
+            let widthPower =
+                ["1%", "25%", "50%", "75%", "100%"];
+            let colorPower =
+                ["#D73F40", "#DC6551", "#F2B84F", "#BDE952", "#3ba62f"];
+    
+            if (value.length >= 6) {
+                let arrayTest =
+                    [/[0-9]/, /[a-z]/, /[A-Z]/, /[^0-9a-zA-Z]/];
+                arrayTest.forEach((item) => {
+                    if (item.test(value)) {
+                        point += 1;
+                    }
+                });
+            }
+            power.style.width = widthPower[point];
+            power.style.backgroundColor = colorPower[point];
+        };
+    }
+</script>
+{% endblock %}

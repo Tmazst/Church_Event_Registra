@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .form-fields{
+        display:flex;
+        flex-direction:column;
+    }
+    section{ background-image:url(static/images/bg_service.png) }
+</style>
+<div class="flash-messages" id="">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for  category, message in messages %}
+                <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+<br><br><br>
+<div class="session-title">
+    <h1 style="margin-bottom:0;">{{event_details.event_title}}</h1>
+    <h3>{{event_details.start_date.strftime("%d %b %y")}} - {{event_details.end_date.strftime("%d %b %y")}}</h3>
+    <h1 style="color:coral">  Registrations </h1>
+    <h5 style="color:rgb(56, 56, 56);margin:auto 0;text-align:center">{{registered_no|length}} Currently Registered</h5>
+    <h5 style="color:rgb(56, 56, 56);margin:auto 0;text-align:center">{{registered_users|length}} Users</h5>
+</div><br>
+{% for user in registered_users %}
+{% if reg_details.query.filter_by(usr_id=user.id).first().pop_image %}
+<div class="">
+   <div class="registered-users-cont">
+        <div class="registered-user">
+            <div class="card">
+                <div class="user-info">
+                    <div style="" class="img-cont">
+                        <div width="90%"><img class="prf-image" src="static/images/{{user.image}}" alt=""/></div>
+                    </div>
+                    <h4 style="margin-bottom: 0;text-align: left">{{user.name}}</h4>
+                    <div class="icons-cont"><img class="icons" src='static/icons/email-icon.png' /><small class="">{{user.email}}</small></div>
+                    <div class="icons-cont"><img class="icons" src='static/icons/church-icon.png' /><small class="">{{user.church_local}},</small></div>
+                    <small class="">{{user.church_circuit}},</small>
+                    <small class="">{{user.church_region}}</small><br>
+                </div>
+            </div>
+
+            </div><br><div style="margin:0 auto;width:200px" ><button style="width:200px" onclick="openDetails('{{user.id}}',event)" class="btns">Show Details</button></div><br><br>
+
+            <div id="reg-info-{{user.id}}" style="padding:;background-color:rgb(240, 238, 238)" class="registration-info">
+                <div class="icons-cont sub-topic"><img class="icons" src='static/icons/registration-icon.png' /><div style="" class="sub-topic">Registration Info</div></div>
+                <div class="general-flex" style="padding:10px; align-items: flex-start !important;flex-direction:column">
+                    <small class="labels">Proof of Payment</small>
+                    <div onclick="popUp('{{user.id}}')" class="btns">Open</div>
+                    <small class="labels">Payment Platform</small>
+                    <small>{{reg_details.query.filter_by(usr_id=user.id).first().payment_platform}}</small>
+                    <small class="labels">Reference No.</small>
+                    <small>{{reg_details.query.filter_by(usr_id=user.id).first().transaction_id}}</small>
+                    <small class="labels">Accommodation</small>
+                    {% if reg_details.query.filter_by(usr_id=user.id).first().accommodation_add_info == 1 %}
+                    <small>Accommodation Required</small>{% else %}<small>Not Required</small>{% endif %}
+                    {% if reg_details.query.filter_by(usr_id=user.id).first().special_diet  == 1  %}<small class="labels">Special Diet</small>
+                    <small>{{reg_details.query.filter_by(usr_id=user.id).first().special_diet}}</small>{% endif %}
+                    <small class="labels">Date</small>
+                    <small>{{reg_details.query.filter_by(usr_id=user.id).first().timestamp}}</small>
+                </div>
+            </div><br>
+
+            <div id="ev-info-{{user.id}}" style="padding:;background-color:rgb(240, 238, 238)" class="registration-info">
+                <div class="icons-cont sub-topic"><img class="icons" src='static/icons/event-icon.png' /><div style="" class="sub-topic">Event Info</div></div>
+                <div class="general-flex" style="padding:10px; align-items: flex-start !important;flex-direction:column">
+                    <small class="labels">Event Title</small>
+                    <small >{{event_details.event_title}}</small>
+                    <small class="labels">Date</small>
+                    <small> {{event_details.start_date.strftime("%d %b %y")}} - {{event_details.end_date.strftime("%d %b %y")}}</small>
+                    <small class="labels">Venue</small>
+                    <small>{{event_details.event_venue}}</small>
+                </div>
+            </div>
+
+            <!-- Pop-up -->
+            <div id="pop_image_{{user.id}}" class="pop-cont">
+                <div id="popup_{{user.id}}" class="pop-up">
+                    <img width="100%" src="static/uploads/{{reg_details.query.filter_by(usr_id=user.id).first().pop_image}}" /><br>
+                    <div  style="align-self:flex-end;width:60%" ><input onclick="closePopup('{{user.id}}')" class="btns" type="button" value="Exit"></div>
+                </div>
+            </div>
+
+        </div>
+   </div>
+  
+</div>
+{% endif %}
+{% endfor %}
+
+<script>
+    
+</script>
+{% endblock %}

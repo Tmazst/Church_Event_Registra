@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .form-fields{
+        display:flex;
+        flex-direction:column;
+    }
+    section{ background-image:url(static/images/bg_service.png) }
+</style>
+<div class="flash-messages" id=""></div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for  category, message in messages %}
+                <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+<br><br>
+<div class="container">
+   
+  <div class="login-cont flex-general">
+    <form style="background-color:;flex-direction:column;z-index:1000;" class="" _lpchecked="1" action="" method="post">
+        <h1 style="float:left;text-align: left;">Hello,<br><span style="font-size:medium;color:rgb(102, 102, 102);">Please Login</span></h1>
+        {{login.hidden_tag()}}
+        <div class="group">
+            {{ login.email(class="form-control",placeholder="Email") }}<br>
+            {% if login.email.errors %}
+            {% for error in login.email.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+            {% endif %}
+        </div>
+        
+        <div class="group">
+            {{ login.password(class="form-control",placeholder="Password")}}<br>
+            {% if login.password.errors %}
+            {% for error in login.password.errors %}<span class="span-error" >*Password {{error}}</span>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <div style="" class="group">
+            <div>{{ login.submit(class="btns") }}</div><br>
+            <div><a class="slinks-li" href="/signup">Create Account</a></div>
+        </div>
+        <div style="" class="group">
+            <div><a class="slinks-li" href="/forgot_password">Forgot Password?</a></div>
+        </div>
+    </form>
+  </div>
+
+</div>
+
+<script>
+    
+</script>
+{% endblock %}

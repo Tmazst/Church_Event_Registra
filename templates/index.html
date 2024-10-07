@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <style>
+        .form-fields{
+            display:flex;
+            flex-direction:column;
+        }
+        section{ background-image:url(static/images/bg_service.png) }
+    </style>
+    <div class="flash-messages" id=""></div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for  category, message in messages %}
+                    <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+</div>
+<br><br>
+<div style="flex-direction: column;justify-content: flex-start;" class="">
+
+    {% if event_details %}
+    <div class="event-info">
+        <img style="height:70px" src="static/icons/registration-icon-big.png" />
+        <img style="height:350px" src="static/icons/aec-agcc.png" />
+        {% if event_details.event_abrr %}
+            <h2 style="margin-top:0px;" class="event-title">{{event_details.event_abbr}}</h2>
+        {% endif %}
+        <div class="add-info">
+            <div class="general-flex"><img style="height:30px" src="static/icons/calender-icon.png"  /><label>Dates</label></div>
+            <small>{{event_details.start_date.strftime("%d %b %y")}} - {{event_details.end_date.strftime("%d %b %y")}}</small><br>
+            <div class="general-flex"><img style="height:30px" src="static/icons/location-icon.png"  /><label>Venue</label></div>
+            <small>{{event_details.event_venue}}</small>
+        </div><br>
+        <div class="add-info">
+            <h4 style="color:red;border:2px solid red;border-radius:20px;padding:10px;">Registration Fees</h4>
+            {% if event_details.reg_fee_amnt1 %}<small>{{event_details.registration_group1}} - <span style="color:red">R{{event_details.reg_fee_amnt1}}0</span></small>{% endif %}
+            {% if event_details.reg_fee_amnt2 %}<small>{{event_details.registration_group2}} - <span style="color:red">R{{event_details.reg_fee_amnt2}}0</span></small>{% endif %}
+            {% if event_details.reg_fee_amnt3 %}<small>{{event_details.registration_group3}} - <span style="color:red">R{{event_details.reg_fee_amnt3}}0</span></small>{% endif %}
+        </div>
+    </div>
+    {% else %}
+        <h1>The are No Registrations Open at this Moment</h1>
+        {% if not current_user.is_authenticated %}
+        <h3 style="color:coral">Do you have an account?<br>If not, please do sign up today for the A.E.C Registration Platform</h3>
+        {% endif %}
+    {% endif %}
+    <br>{% if current_user.role == "church_user" and event_details.event_closed == 0 %}<br><br>
+    <div style="margin: 0 auto;font-weight: 500;text-align: center;">Check in and Register for this upcoming Church Event?</div>
+    <div class="general-flex" style="margin:10px auto;background-color:;"><a href="/user_registration_form"><button style="border:1px solid coral;color:coral;padding:10px" class="btns">Register Today!</button></a></div>
+    {% endif %}
+    <br><br><br>
+</div><br><br><br><div style="height:300px"></div>
+
+<script>
+    
+</script>
+{% endblock %}

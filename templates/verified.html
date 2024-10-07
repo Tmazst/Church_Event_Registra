@@ -1,0 +1,38 @@
+{% block content %}
+
+<div class="flash-messages" class="btns">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for  category, message in messages %}
+                <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div><br><br>
+<!--      <h3>How are you Today!<br> <span class="spans"></span></h3>-->
+    <!-- <br><br><br>
+     <p class="paras-subtopics"></p><br>
+    <h1 class="left-margin"><span class="spans">  </span></h1> -->
+            <!----FORM----->
+<!-- <div class="container">
+    <div class="login-cont flex-general">
+        <form style="z-index:1000" _lpchecked="1" action="" method="post">
+            <h1>Welcome,<br><span style="font-size:medium;color:rgb(102, 102, 102)">Please go to your email account and verify your email & the confirmation link we sent.</span></h1> -->
+            <!-- <div class="group"> -->
+            <!--<input type="password" class="form-control" id="password" name="passw" placeholder="Password">-->
+            <!-- </div> -->
+            <!-- <div class="group">
+                &lt;!&ndash;<input type="email" class="form-control" id="email" name="email" placeholder="Email">&ndash;&gt;
+            </div>  -->
+
+            <!-- <div style="margin:0 auto;" class="group">
+                <div style="padding-left:;width:100%;background-color:339ab3" class="d-flex flex-row align-items-center justify-content-between">
+                    <button>Re-send Link</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div> -->
+<br><br><br><br><br><br><br><br>
+
+{% endblock %}

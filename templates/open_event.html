@@ -1,0 +1,131 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+    <style>
+        .form-fields{
+            display:flex;
+            flex-direction:column;
+        }
+        section{ background-image:url(static/images/bg_service.png) }
+    </style>
+
+<div class="flash-messages" id="">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for  category, message in messages %}
+                <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+
+<br><br>
+
+<div class="container">
+   
+  <div class=" flex-general">
+    
+      <form style="background-color:;flex-direction:column;z-index:1000;" class="" _lpchecked="1" action="" method="post" enctype="multipart/form-data">
+        <h1>Set Up a Church Event<br><span style="font-size:medium;color:rgb(102, 102, 102)">Event Details</span></h1>
+            {{open_reg_form.hidden_tag()}}
+            <div class="group">
+                {{ open_reg_form.event_title.label }}<br>
+                {{ open_reg_form.event_title(class="form-control",placeholder="Event Title") }}<br>
+                {% if open_reg_form.event_title.errors %}
+                  {% for error in open_reg_form.event_title.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+               {% endif %}
+          </div>
+          <div class="group">
+            {{ open_reg_form.event_venue.label }}<br>
+            {{ open_reg_form.event_venue(class="form-control",placeholder="Event Venue") }}<br>
+            {% if open_reg_form.event_venue.errors %}
+              {% for error in open_reg_form.event_venue.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+           {% endif %}
+          </div>
+          <div class="group">
+            {{ open_reg_form.start_date.label }}<br>
+            {{ open_reg_form.start_date(class="form-control",placeholder="e.g. 23 Aug 24") }}<br>
+            {% if open_reg_form.start_date.errors %}
+              {% for error in open_reg_form.start_date.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+           {% endif %}
+          </div>
+          <div class="group">
+            {{ open_reg_form.end_date.label }}<br>
+            {{ open_reg_form.end_date(class="form-control",placeholder="e.g. 23 Aug 24") }}<br>
+            {% if open_reg_form.end_date.errors %}
+              {% for error in open_reg_form.end_date.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+           {% endif %}
+          </div>
+        <div class="group">
+                {{ open_reg_form.event_theme.label }}<br>
+                {{ open_reg_form.event_theme(class="form-control",placeholder="Event Theme") }}<br>
+                {% if open_reg_form.event_theme.errors %}
+                {% for error in open_reg_form.event_theme.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+                {% endif %}
+        </div>
+        <div class="group">
+                {{ open_reg_form.registration_group1.label }}<br>
+                {{ open_reg_form.registration_group1(class="form-control",placeholder="church circuit")}}<br>
+                {% if open_reg_form.registration_group1.errors %}
+                {% for error in open_reg_form.registration_group1.errors %}<span class="span-error" >*church_circuit {{error}}</span>
+                {% endfor %}
+                {% endif %}
+        </div>
+        <div class="group">
+            {{ open_reg_form.reg_fee_amnt1.label }}<br>
+            {{ open_reg_form.reg_fee_amnt1(class="form-control",placeholder="e.g. R300.00")}}<br>
+            {% if open_reg_form.reg_fee_amnt1.errors %}
+                {% for error in open_reg_form.reg_fee_amnt1.errors %}<span class="span-error" >*{{error}}</span>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="group">
+            {{ open_reg_form.registration_group2.label }}<br>
+            {{ open_reg_form.registration_group2(class="form-control",placeholder="church circuit")}}<br>
+            {% if open_reg_form.registration_group2.errors %}
+            {% for error in open_reg_form.registration_group2.errors %}<span class="span-error" >*church_circuit {{error}}</span>
+            {% endfor %}
+            {% endif %}
+    </div>
+    <div class="group">
+        {{ open_reg_form.reg_fee_amnt2.label }}<br>
+        {{ open_reg_form.reg_fee_amnt2(class="form-control",placeholder="e.g. R300.00")}}<br>
+        {% if open_reg_form.reg_fee_amnt2.errors %}
+            {% for error in open_reg_form.reg_fee_amnt2.errors %}<span class="span-error" >*{{error}}</span>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="group">
+            {{ open_reg_form.registration_group3.label }}<br>
+            {{ open_reg_form.registration_group3(class="form-control",placeholder="church circuit")}}<br>
+            {% if open_reg_form.registration_group3.errors %}
+            {% for error in open_reg_form.registration_group3.errors %}<span class="span-error" >*church_circuit {{error}}</span>
+            {% endfor %}
+            {% endif %}
+    </div>
+    <div class="group">
+        {{ open_reg_form.reg_fee_amnt3.label }}<br>
+        {{ open_reg_form.reg_fee_amnt3(class="form-control",placeholder="e.g. R300.00")}}<br>
+        {% if open_reg_form.reg_fee_amnt3.errors %}
+            {% for error in open_reg_form.reg_fee_amnt3.errors %}<span class="span-error" >*{{error}}</span>
+            {% endfor %}
+        {% endif %}
+    </div>
+        <div style="" class="group">
+                <div>{{ open_reg_form.submit(class="btns") }}</div><br>
+                <!--<input class="btns" type="submit" value="Create Account" />-->
+                <div><a class="slinks-li" href="/login">Login</a></div>
+        </div>
+        <div style="" class="group">
+            <!-- <div><a class="slinks-li" href="/register">Forgot Password?</a></div> -->
+        </div>
+
+      </form>
+  </div>
+</div>
+
+<script>
+    
+</script>
+{% endblock %}

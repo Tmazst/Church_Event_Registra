@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="static/css/styles.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <title>{{title}}</title>
+
+ 
+
+    {% if current_user.is_authenticated  and current_user.role == "admin_user" %}
+   <nav class="nav">
+       <ul>
+           <li class="links-li" ><a href="/">Home</a></li>
+           <li class="links-li" ><a href="/registered_users">Registered</a></li>
+           <!-- <li class="links-li"><a href="/open_event_form">Open Event</a></li> -->
+           <li class="links-li"><a href="#">Close Event</a></li>
+       </ul>
+   </nav>
+   {% endif %}
+
+   {% if current_user.role == "admin_user" %}
+<!--    <button class="menu burger">Menu</button>-->
+    <div  onclick="openMenuFunc()" class="menu-icon">
+        <div class="stroke"></div>
+        <div class="stroke"></div>
+        <div class="stroke"></div>
+    </div>
+    {% endif %}
+
+    <div class="other-nav">
+        <ul class="other-navbar-nav">
+          <li class="other-nav-item active">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <div class="navbar-separator"></div>
+          <li class="other-nav-item">
+            <a class="nav-link" href="/registered_users">Registered Users</a>
+          </li>
+          <div class="navbar-separator"></div>
+          <li class="other-nav-item">
+            <a class="nav-link" href="/user_registration_form">Register</a>
+          </li>
+          <div class="navbar-separator"></div>
+          <li class="other-nav-item">
+            <a class="nav-link" href="/user_account">My Account</a>
+          </li>
+          <div class="navbar-separator"></div> 
+          <!-- <li class="other-nav-item">
+            <a class="nav-link" href="/open_event_form" >Open Event</a>
+          </li>
+          <div class="navbar-separator"></div> -->
+            <li class="other-nav-item">
+            <a class="nav-link" href="/contact" >Close Event</a>
+          </li>
+        </ul>
+    </div>
+
+    <div style="background-color:;margin-top:30px;align-items:center;"  class="user-label">
+      {% if current_user.is_authenticated %}
+          <li><span style="font-size:13px" class="">Welcome, {{current_user.name}}</span></li>
+          <li><a class="btns-user links-user" href="/user_account">Account</a></li>
+          <li><a class="btns-outlined links-user" href="/logout">Logout</a></li>
+      {% else %}
+          <li><a class="btns-outlined links-user" href="/login">Login</a></li>
+          <li><a class="btns-user links-user" href="/signup">Signup</a></li>
+      {% endif %}
+    </div>
+
+</head>
+
+<body>
+    <div class="">
+       
+        <div>
+          <div class="church-logo"><img style="height:inherit" src="static/images/aec_logo.jpg" /></div>
+          <h1 id="abbr-style" style="margin:10px auto;font-weight:800" ><small style="">A</small>.<small style="">E</small>.<small style="">C</small></h1>
+          <h2 style="margin-top:0px;color:rgb(65, 66, 66)" >African Evangelical Church</h2>
+        </div>
+        {% if not current_user.is_authenticated %}
+        <div class="general-flex" style="margin:10px auto;"><a href="/login"> <button style="border:1px solid coral;color:coral;padding:10px" class="btns">Log-in</button></a></div>
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </div><br><br>
+    <div class="physical_addr">
+      <label>powered by: Tech Xolutions(TechX)</label><br>
+        <label>info@techxololutions.com</label>
+    </div>
+
+    <script src="static/js_script.js" ></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

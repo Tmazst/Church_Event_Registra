@@ -1,0 +1,138 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .form-fields{
+        display:flex;
+        flex-direction:column;
+    }
+    section{ background-image:url(static/images/bg_service.png) }
+</style>
+<div class="flash-messages" id="">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for  category, message in messages %}
+                <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+<br><br>
+<div class="user-info">
+    <!-- <div style="" class="img-cont"><div width="90%"><img class="prf-image" src="static/images/default.jpg" alt=""/></div></div> -->
+    <h4 style="margin-bottom: 0;">{{event_details.event_title}}</h4>
+    {% if event_details.event_abbr %}<small class="">{{event_details.event_abbr}}</small>{% endif %}
+    <div class="icons-cont"><small class="">{{event_details.event_venue}}</small></div>
+    <div class="icons-cont"><small class="">{{event_details.start_date}}</small> - <small class="">{{event_details.end_date}}</small></div>
+    <br>
+</div>
+
+<br><br>
+
+<div class="container">
+   
+  <div class=" flex-general">
+    
+      <form style="background-color:;flex-direction:column;z-index:1000;" class="" _lpchecked="1" action="" method="post" enctype="multipart/form-data">
+        <h1>Please Finish,<br><span style="font-size:medium;color:rgb(102, 102, 102)">Event Details</span></h1>
+            {{open_reg_form.hidden_tag()}}
+           <div class="group">
+                {{ open_reg_form.event_title.label }}<br>
+                {{ open_reg_form.event_title(class="form-control",placeholder="Event Title",value=event_details.event_title) }}<br>
+                {% if open_reg_form.event_title.errors %}
+                  {% for error in open_reg_form.event_title.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+               {% endif %}
+          </div>
+          <div class="group">
+            {{ open_reg_form.event_venue.label }}<br>
+            {{ open_reg_form.event_venue(class="form-control",placeholder="Event Venue",value=event_details.event_venue) }}<br>
+            {% if open_reg_form.event_venue.errors %}
+              {% for error in open_reg_form.event_venue.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+           {% endif %}
+          </div>
+          <div class="group">
+            {{ open_reg_form.start_date.label }}<br>
+            {{ open_reg_form.start_date(class="form-control",placeholder="e.g. 23 Aug 24") }}<br>
+            {% if open_reg_form.start_date.errors %}
+              {% for error in open_reg_form.start_date.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+           {% endif %}
+          </div>
+          <div class="group">
+            {{ open_reg_form.end_date.label }}<br>
+            {{ open_reg_form.end_date(class="form-control",placeholder="e.g. 27 Aug 24") }}<br>
+            {% if open_reg_form.end_date.errors %}
+              {% for error in open_reg_form.end_date.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+           {% endif %}
+          </div>
+        <div class="group">
+                {{ open_reg_form.event_theme.label }}<br>
+                {{ open_reg_form.event_theme(class="form-control",placeholder="Event Theme",value=event_details.event_theme) }}<br>
+                {% if open_reg_form.event_theme.errors %}
+                {% for error in open_reg_form.event_theme.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+                {% endif %}
+        </div>
+        <div class="group">
+                {{ open_reg_form.registration_group1.label }}<br>
+                {{ open_reg_form.registration_group1(class="form-control",placeholder="church circuit")}}<br>
+                {% if open_reg_form.registration_group1.errors %}
+                {% for error in open_reg_form.registration_group1.errors %}<span class="span-error" >*church_circuit {{error}}</span>
+                {% endfor %}
+                {% endif %}
+        </div>
+        <div class="group">
+            {{ open_reg_form.reg_fee_amnt1.label }}<br>
+            {{ open_reg_form.reg_fee_amnt1(class="form-control",placeholder="e.g. R300.00")}}<br>
+            {% if open_reg_form.reg_fee_amnt1.errors %}
+                {% for error in open_reg_form.reg_fee_amnt1.errors %}<span class="span-error" >*{{error}}</span>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="group">
+            {{ open_reg_form.registration_group2.label }}<br>
+            {{ open_reg_form.registration_group2(class="form-control",placeholder="church circuit")}}<br>
+            {% if open_reg_form.registration_group2.errors %}
+            {% for error in open_reg_form.registration_group2.errors %}<span class="span-error" >*church_circuit {{error}}</span>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="group">
+            {{ open_reg_form.reg_fee_amnt2.label }}<br>
+            {{ open_reg_form.reg_fee_amnt2(class="form-control",placeholder="e.g. R300.00")}}<br>
+            {% if open_reg_form.reg_fee_amnt2.errors %}
+                {% for error in open_reg_form.reg_fee_amnt2.errors %}<span class="span-error" >*{{error}}</span>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="group">
+                {{ open_reg_form.registration_group3.label }}<br>
+                {{ open_reg_form.registration_group3(class="form-control",placeholder="church circuit")}}<br>
+                {% if open_reg_form.registration_group3.errors %}
+                {% for error in open_reg_form.registration_group3.errors %}<span class="span-error" >*church_circuit {{error}}</span>
+                {% endfor %}
+                {% endif %}
+        </div>
+        <div class="group">
+            {{ open_reg_form.reg_fee_amnt3.label }}<br>
+            {{ open_reg_form.reg_fee_amnt3(class="form-control",placeholder="e.g. R300.00")}}<br>
+            {% if open_reg_form.reg_fee_amnt3.errors %}
+                {% for error in open_reg_form.reg_fee_amnt3.errors %}<span class="span-error" >*{{error}}</span>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div style="" class="group">
+                <div>{{ open_reg_form.submit(class="btns",value="Update") }}</div><br>
+                <!--<input class="btns" type="submit" value="Create Account" />-->
+        </div>
+        <div style="" class="group">
+            <!-- <div><a class="slinks-li" href="/register">Forgot Password?</a></div> -->
+        </div>
+
+      </form>
+  </div>
+</div>
+
+<script>
+    
+</script>
+{% endblock %}

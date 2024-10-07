@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .form-fields{
+        display:flex;
+        flex-direction:column;
+    }
+    section{ background-image:url(static/images/bg_service.png) }
+</style>
+<div class="flash-messages" id="">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for  category, message in messages %}
+                <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+<br><br><br>
+<div class="session-title">
+    <h1 style="margin-bottom:0;">{{event_details.event_title}}</h1>
+    <h3>{{event_details.start_date}} - {{event_details.start_date}}</h3>
+    <h3 >Registrations</h3>
+</div><br>
+
+<div class="">
+   <div class="registered-users-cont">
+        <div class="registered-user">
+            <div class="user-info">
+                <div style="height:200px;width:200px" class="general-flex">
+                    <img style="height:inherit" class="prf-image" src="static/icons/tick-icon.png" alt="" />
+                </div>
+                <h4 style="margin-bottom: 0;color:coral;text-align: left;">Registration Successful!</h4><br>
+                <div>{{user.name}}</div>
+                <div class="icons-cont"><img class="icons" src='static/icons/email-icon.png' /><small class="">{{user.email}}</small></div>
+                <div class="icons-cont"><img class="icons" src='static/icons/church-icon.png' /><small class="">{{user.church_local}},{{user.church_circuit}},{{user.church_region}}</small></div>
+                <small class="">Token:</small>
+                <small class="">{{reg_info.query.filter_by(usr_id=user.id).first().transaction_token}}</small><br><br><br>
+                <small style="color:coral;font-weight:600" class="">Please Note: Full Details of Registration are sent to your registered email</small><br>
+            </div>
+        </div>
+    </div>
+</div><br><br>
+
+<script>
+</script>
+{% endblock %}
