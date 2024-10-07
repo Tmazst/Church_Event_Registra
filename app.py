@@ -689,16 +689,16 @@ def verification():
         #     flash(f'Email not sent here', 'error')
         #     return "The mail was not sent"
 
-    try:
-        if not usr_.verified:
-            send_veri_mail() 
-        else:
-            log_out()
-            return redirect(url_for("home"))
-    except:
-        flash(f'Email Not Sent. Please try again', 'error')
+    # try:
+    if not usr_.verified:
+        send_veri_mail()
+    else:
         log_out()
-        return redirect(url_for("login"))
+        return redirect(url_for("home"))
+    # except:
+    #     flash(f'Email Not Sent. Please try again', 'error')
+    #     log_out()
+    #     return redirect(url_for("login"))
 
     return render_template('verification.html')
 
