@@ -324,12 +324,12 @@ def user_registration_form():
             file =  process_pop_file(registration_form.pop_image.data)
             registration.pop_image = file
         
-        # db.session.add(registration)
+        db.session.add(registration)
 
         if not val_registration:
-            # db.session.commit()
+            db.session.commit()
             reg_confirmation()
-            print("Confirmation Sent Successfully!")
+            # print("Confirmation Sent Successfully!")
         else:
             flash(f"You are already registered.", "success")
             reg_confirmation()
