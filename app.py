@@ -43,7 +43,6 @@ login_manager.login_view = 'login'
 def load_user(user_id):
     return User.query.get(user_id)
 
-
 ALLOWED_EXTENSIONS = {"txt", "xlxs", 'docx', 'pdf', 'png', 'jpg', 'jpeg', 'gif',"JPG"}
 
 # check if the file has an allowed extension
@@ -71,7 +70,7 @@ class user_class:
             flash('Token is Invalid', 'error')
         except:
             return f'Something Went Wrong'
-
+         
         return user_id
 
 
@@ -216,7 +215,7 @@ def reg_confirmation():
         app.config["MAIL_USE_TLS"] = True
         # Creditentials saved in environmental variables
         em = app.config["MAIL_USERNAME"] = "pro.dignitron@gmail.com"  # os.getenv("MAIL")
-        app.config["MAIL_PASSWORD"] = os.getenv("PWD")
+        app.config["MAIL_PASSWORD"] = "!Tmazstisto@GmailAcc763.@@55;2023.may" #os.getenv("PWD")
         app.config["MAIL_DEFAULT_SENDER"] = "noreply@gmail.com"
 
         mail = Mail(app)
