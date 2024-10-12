@@ -309,7 +309,7 @@ def user_registration_form():
         val_registration = pop_transactions.query.filter_by(usr_id=current_user.id).first()
     
     if not current_user.church_local and not current_user.church_circuit:
-        flash("Please Finish your Account Setup, Almost There!","warning")
+        flash("Please Finish Your Account Setup, Almost There!","warning")
         return redirect(url_for("finish_signup"))
     
     if registration_form.validate_on_submit():
