@@ -314,7 +314,7 @@ def user_registration_form():
     
     if registration_form.validate_on_submit():
         registration = pop_transactions(
-            usr_id=current_user.id,transaction_id=registration_form.transaction_id.data,transaction_token=secrets.token_hex(16)+str(current_user.id),
+            usr_id=current_user.id,transaction_id=secrets.token_hex(16)+str(current_user.id),transaction_token=secrets.token_hex(16)+str(current_user.id),
             timestamp=datetime.now(),payment_platform=registration_form.payment_platform.data,denom_structure=registration_form.denom_structure.data,#accomodation = registration_form.accomodation.data
             accommodation_bool=registration_form.accommodation_bool.data,accommodation_add_info=registration_form.accommodation_add_info.data,
             special_diet=registration_form.special_diet.data

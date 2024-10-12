@@ -69,7 +69,7 @@ class RegistrationsForm(FlaskForm):
     transaction_id = StringField('Transaction Reference No. (optional)')
     pop_image = FileField('Upload Proof of Payment', validators=[FileRequired()])
     payment_platform = SelectField('Payment Platform',
-                                  choices=[("Mobile Money", "Mobile Money"),("FNB", "FNB")])
+                                  choices=[("AGCC FNB Account", "AGCC FNB Account"),("Your Regional Bank Acc.", "Your Regional Bank Acc.")])
     
     denom_structure = SelectField('Denominational Structure',
                             choices=[("None", "None"),("Board", "Board"),("Women's Committee", "Women's Committee"),("Men's Committee", "Men's Committee"),("Youth Committee", "Youth Committee")

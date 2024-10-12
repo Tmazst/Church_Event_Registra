@@ -48,13 +48,6 @@
             {% endif %}
         </div>
         <div class="group">
-            {{ registration_form.transaction_id.label }}<br>
-            {{ registration_form.transaction_id(class="form-control",placeholder="e.g. refM005484") }}<br>
-            {% if registration_form.transaction_id.errors %}
-            {% for error in registration_form.transaction_id.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
-            {% endif %}
-        </div>
-        <div class="group">
             {{ registration_form.payment_platform.label }}<br>
             {{ registration_form.payment_platform(class="form-control",placeholder="e.g. Momo") }}<br>
             {% if registration_form.payment_platform.errors %}
