@@ -35,7 +35,7 @@ class UserAccountForm(FlaskForm):
     church_circuit = StringField('Circuit', validators=[DataRequired()])
     gender = SelectField('Gender',choices=[("Male", "Male"),("Female", "Female")])
     pastor = SelectField('Are You a Pastor?',choices=[("None", "None"),("Pastor", "Pastor"),("Reverend", "Reverend"),("Bishop", "Bishop")])
-    age_group = SelectField('Group',choices=[("Youth", "Youth"),("Young Adults", "Young Adults"),("Mother", "Mother"),("Father", "Father"),("Sunday School", "Sunday School")])
+    age_group = SelectField('Group',choices=[("Youth", "Youth"),("Young Adults", "Young Adults"),("Women", "Women"),("Men", "Men"),("Sunday School", "Sunday School")])
     other = StringField('')
     other2 = StringField('')
     other3 = StringField('')
@@ -69,11 +69,10 @@ class RegistrationsForm(FlaskForm):
     transaction_id = StringField('Transaction Reference No. (optional)')
     pop_image = FileField('Upload Proof of Payment', validators=[FileRequired()])
     payment_platform = SelectField('Payment Platform',
-                                  choices=[("Mobile Money", "Mobile Money"),("eMali", "eMali"),("Instant Money", "Instant Money"), ("FNB", "FNB"),
-                                           ("Standard Bank", "Standard Bank"),("Eswatini Bank", "Eswatini Bank"),("Building Society", "Building Society")])
+                                  choices=[("Mobile Money", "Mobile Money"),("FNB", "FNB")])
     
     denom_structure = SelectField('Denominational Structure',
-                            choices=[("--", "--"),("Board", "Board"),("Women's Committee", "Women's Committee"),("Men's Committee", "Men's Committee"),("Youth Committee", "Youth Committee")
+                            choices=[("None", "None"),("Board", "Board"),("Women's Committee", "Women's Committee"),("Men's Committee", "Men's Committee"),("Youth Committee", "Youth Committee")
                                      ,("Young Adults' Committee", "Young Adults' Committee"),("Sunday School", "Sunday School")])
     special_diet_bool = RadioField('Special Diet?',choices=[(0, "No"),(1, "Yes")])
     special_diet = StringField('Please Specify')

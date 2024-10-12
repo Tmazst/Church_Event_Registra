@@ -790,22 +790,34 @@ def login():
             user_login = User.query.filter_by(email=login.email.data).first()
             if user_login and encry_pw.check_password_hash(user_login.password, login.password.data):
                 
-                if not user_login.verified:
-                    login_user(user_login)
-                    return redirect(url_for('verification'))
-                else:
-                    # After login required prompt, take me to the page I requested earlier
-                    login_user(user_login)
-                    print("No Verification Needed: ", user_login.verified)
-                    req_page = request.args.get('next')
-                    flash(f"Hey! {user_login.name.title()} You're Logged In!", "success")
+                login_user(user_login)
+                print("No Verification Needed: ", user_login.verified)
+                req_page = request.args.get('next')
+                flash(f"Hey! {user_login.name.title()} You're Logged In!", "success")
 
-                    if not current_user.church_local and not current_user.church_circuit:
-                        print("Finish Setup")
-                        flash(f"Welcome! {user_login.name.title()}, Please Finish your Sign-up process", "success")
-                        return redirect(url_for('finish_signup'))
+                if not current_user.church_local and not current_user.church_circuit:
+                    print("Finish Setup")
+                    flash(f"Welcome! {user_login.name.title()}, Please Finish your Sign-up process", "success")
+                    return redirect(url_for('finish_signup'))
+            
+                return redirect(req_page) if req_page else redirect(url_for('home'))
+
+                # if not user_login.verified:
+                #     login_user(user_login)
+                #     return redirect(url_for('verification'))
+                # else:
+                #     # After login required prompt, take me to the page I requested earlier
+                #     login_user(user_login)
+                #     print("No Verification Needed: ", user_login.verified)
+                #     req_page = request.args.get('next')
+                #     flash(f"Hey! {user_login.name.title()} You're Logged In!", "success")
+
+                #     if not current_user.church_local and not current_user.church_circuit:
+                #         print("Finish Setup")
+                #         flash(f"Welcome! {user_login.name.title()}, Please Finish your Sign-up process", "success")
+                #         return redirect(url_for('finish_signup'))
                 
-                    return redirect(req_page) if req_page else redirect(url_for('home'))
+                #     return redirect(req_page) if req_page else redirect(url_for('home'))
             else:
                 flash(f"Login Unsuccessful, please use correct email or password", "error")
                 # print(login.errors)
