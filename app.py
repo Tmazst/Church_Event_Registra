@@ -294,7 +294,7 @@ def reg_confirmation():
     # try:
     send_veri_mail() 
     # except:
-        # flash(f'Email Not Sent. Please try again', 'error')
+
 
 
 #User Registrations Form
