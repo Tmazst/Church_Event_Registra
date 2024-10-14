@@ -94,20 +94,20 @@ def process_file(file):
             return f"Allowed are [.txt, .xls,.docx, .pdf, .png, .jpg, .jpeg, .gif] only"
 
 
-def process_pop_file(file):
+def process_pop_file(file,usr_id):
 
         filename = secure_filename(file.filename)
 
         _img_name, _ext = os.path.splitext(filename)
         gen_random = secrets.token_hex(8)
-        new_file_name = gen_random + _ext
+        new_file_name = gen_random + str(usr_id) + _ext
 
         if file.filename == '':
             return 'No selected file'
 
         if file.filename:
             file_saved = file.save(os.path.join(app.config["UPLOADED"],new_file_name))
-            flash(f"File Upload Successful!!", "success")
+            # flash(f"File Upload Successful!!", "success")
             return new_file_name
 
         else:
@@ -123,7 +123,7 @@ encry_pw = Bcrypt()
 def inject_ser():
     event = open_event.query.filter_by(event_closed=False).first()
 
-    return dict(event_details=event)
+    return dict(event_details=event,pop_transts=pop_transactions)
 
 
 @app.route("/", methods=['POST','GET'])
@@ -284,7 +284,7 @@ def reg_confirmation():
 
         try:
             mail.send(msg)
-            flash(f'An email has been sent to your account with Registration Details', 'success')
+            flash(f'We have sent you an email with Registration Details', 'success')
             return "Email Sent"
         except Exception as e:
             flash(f'Email not sent here', 'error')
@@ -295,7 +295,6 @@ def reg_confirmation():
     # except:
 
 
-
 #User Registrations Form
 @app.route("/user_registration_form", methods=["POST", "GET"])
 @login_required
@@ -304,11 +303,17 @@ def user_registration_form():
     registration_form = RegistrationsForm()
     get_user = User.query.get(current_user.id)
     event = open_event.query.filter_by(event_closed=False).first()
+
     if event:
         val_registration = pop_transactions.query.filter_by(usr_id=current_user.id).first()
     
+    if val_registration:
+        flash(f"You are already registered.", "success")
+        # reg_confirmation()
+        return redirect(url_for("already_registered"))# redirect(url_for("home"))
+    
     if not current_user.church_local and not current_user.church_circuit:
-        flash("Please Finish Your Account Setup, Almost There!","warning")
+        flash("Please Finish Your Account Setup, First, You're Almost There!","warning")
         return redirect(url_for("finish_signup"))
     
     if registration_form.validate_on_submit():
@@ -320,7 +325,7 @@ def user_registration_form():
             )
         
         if registration_form.pop_image.data:
-            file =  process_pop_file(registration_form.pop_image.data)
+            file =  process_pop_file(registration_form.pop_image.data,current_user.id)
             registration.pop_image = file
         
         db.session.add(registration)
@@ -329,14 +334,23 @@ def user_registration_form():
             db.session.commit()
             reg_confirmation()
             # print("Confirmation Sent Successfully!")
-        else:
-            flash(f"You are already registered.", "success")
-            reg_confirmation()
-            return redirect(url_for("registration_success"))# redirect(url_for("home"))
-        flash(f"You are successfully registered", "success")
+        # else:
+        #     flash(f"You are already registered.", "success")
+        #     reg_confirmation()
+        #     return redirect(url_for("registration_success"))# redirect(url_for("home"))
+        # flash(f"You are successfully registered", "success")
         return redirect(url_for("registration_success"))
 
     return render_template('registrations_form.html',registration_form=registration_form,user=get_user,event_details=event,val_registration=val_registration)
+
+#User Registrations Form
+@app.route("/already_registered", methods=["POST", "GET"])
+@login_required
+def already_registered():
+
+    registered_user = church_user.query.get(current_user.id)
+
+    return render_template('already-registered.html',user=registered_user,reg_info=pop_transactions)
 
 
 # User Registrations
