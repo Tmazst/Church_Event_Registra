@@ -354,13 +354,23 @@ def already_registered():
 # User Registrations
 @app.route("/registered_users", methods=["POST", "GET"])
 @login_required
-def user_registrations():
+def registered_users():
+
+    registered_users = church_user.query.all()
+    registered_no = pop_transactions.query.all()
+
+    return render_template('registered_users.html',registered_users=registered_users,reg_details=pop_transactions,registered_no=registered_no)
+
+
+# User Registrations
+@app.route("/registrations", methods=["POST", "GET"])
+@login_required
+def registrations():
 
     registered_users = church_user.query.all()
     registered_no = pop_transactions.query.all()
 
     return render_template('registrations.html',registered_users=registered_users,reg_details=pop_transactions,registered_no=registered_no)
-
 
 @app.route("/registration_success", methods=["POST", "GET"])
 @login_required

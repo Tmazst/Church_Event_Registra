@@ -1713,6 +1713,43 @@ small{
     max-width: 400px;
 }
 
+.table{
+    background-color: #f3f3f3;
+    border:1px solid rgb(197, 197, 197);
+    border-radius: 20px;
+    padding:20px;
+    display: grid;  /* Use grid layout */
+    grid-template-columns: repeat(10, 1fr);  /* 10 equal columns */
+    max-width: 1300px;
+    align-items: center;
+    margin: 0 auto;
+    /* width */
+
+}
+
+.table_headers{
+    display: contents;  /* Use contents to inherit the grid structure */
+    border-bottom: 2px solid rgb(56, 56, 56); 
+    padding-bottom: 10px;
+}
+
+.table_headers label{
+    font-weight: 600;
+    padding: 5px;  /* Adjust label padding */
+}
+
+.table_rows{
+    display: contents;  /* Use contents to inherit the grid structure */
+    align-items: space-between;
+    padding-bottom: 10px;
+}
+
+.table_rows label{
+    padding: 0 10px;  /* Adjust label padding */
+    font-weight: 500;
+    font-size: 14px;
+}
+
 .img-cont{
     /* background-color: #0F75BC; */
     border-radius: 50%;
