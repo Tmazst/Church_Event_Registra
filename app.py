@@ -65,9 +65,9 @@ class user_class:
         try:
             user_id = s.loads(token, max_age=300)['user_id']
         except itsdangerous.SignatureExpired:
-            flash('Token has expired, Please try again', 'error')
+           return f'Token has expired, Please Create a New Token'
         except itsdangerous.BadSignature:
-            flash('Token is Invalid', 'error')
+            return f'Token has expired, Please Create a New Token'
         except:
             return f'Something Went Wrong'
          
@@ -273,7 +273,6 @@ def reg_confirmation():
             <li><span>Denominational Structure:</span> {reg_info.denom_structure}</li>
             <li><span>Reg. Date:</span> {reg_info.timestamp.strftime("%d %b %y")}</li>
             <li><span>Payment Mode:</span> {reg_info.payment_platform}</li>
-            <li><span>Transaction ID:</span> {reg_info.transaction_id}</li>
             <li><span>Transaction Token:</span> {reg_info.transaction_token}</li>
         </ul>
         <p class="footer">Thank you for registering!</p>
@@ -314,7 +313,7 @@ def user_registration_form():
     
     if registration_form.validate_on_submit():
         registration = pop_transactions(
-            usr_id=current_user.id,transaction_id=secrets.token_hex(16)+str(current_user.id),transaction_token=secrets.token_hex(16)+str(current_user.id),
+            usr_id=current_user.id,transaction_id=secrets.token_hex(16),transaction_token=secrets.token_hex(16)+str(current_user.id),
             timestamp=datetime.now(),payment_platform=registration_form.payment_platform.data,denom_structure=registration_form.denom_structure.data,#accomodation = registration_form.accomodation.data
             accommodation_bool=registration_form.accommodation_bool.data,accommodation_add_info=registration_form.accommodation_add_info.data,
             special_diet=registration_form.special_diet.data
