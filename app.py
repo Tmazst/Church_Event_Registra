@@ -505,7 +505,7 @@ def reset(token):
         usr_obj.password = pass_reset_hash
         db.session.commit()
 
-        flash(f"Password Reset was Successfully! Please Login with your New Password", "success")
+        flash(f"You have Successfully Changed your Password! You can now Login with your New Password", "success")
 
         return redirect(url_for("login"))
         # except:
