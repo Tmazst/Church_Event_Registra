@@ -80,8 +80,8 @@
           <h1 id="abbr-style" style="margin:10px auto;font-weight:800" ><small style="">A</small>.<small style="">E</small>.<small style="">C</small></h1>
           <h2 style="margin-top:0px;color:rgb(65, 66, 66)" >African Evangelical Church</h2>
         </div>
-        {% if not current_user.is_authenticated %}
-        <div class="general-flex" style="margin:10px auto;"><a href="/login"> <button style="border:1px solid coral;color:coral;padding:10px" class="btns">Log-in</button></a></div>
+        {% if event_details %} 
+        <div class="general-flex" style="margin:10px auto;"><a href="/user_registration_form"> <button style="border:1px solid coral;color:coral;padding:10px" class="btns">Register / Reserve</button></a></div>
         {% endif %}
         {% block content %}
         {% endblock %}

@@ -46,7 +46,8 @@
         <h3 style="color:coral">Do you have an account?<br>If not, please do sign up today for the A.E.C Registration Platform</h3>
         {% endif %}
     {% endif %}
-    <br>{% if current_user.role == "church_user" and event_details.event_closed == 0 %}<br><br>
+    <br>
+    {% if current_user.role == "church_user" and event_details.event_closed == 0 %}<br><br>
     <div style="margin: 0 auto;font-weight: 500;text-align: center;">Check in and Register for this upcoming Church Event?</div>
     <div class="general-flex" style="margin:10px auto;background-color:;"><a href="/user_registration_form"><button style="border:1px solid coral;color:coral;padding:10px" class="btns">Register Today!</button></a></div>
     {% endif %}
