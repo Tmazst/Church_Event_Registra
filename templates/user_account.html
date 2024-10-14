@@ -21,7 +21,7 @@
 <br><br>
 <div style class="user-info general-flex-col">
     <div style="" class="img-cont">
-        <div width="90%"><img class="prf-image" src="static/images/default.jpg" alt=""/></div>
+        <div width="90%"><img class="prf-image" src="static/images/{{usr_account.image}}" alt=""/></div>
     </div>
     <h4 style="margin-bottom: 0;text-align:left">{{usr_account.name}}</h4>
     <div style="" class="icons-cont"><img class="icons" src='static/icons/email-icon.png' /><small class="">{{usr_account.email}}</small></div>
@@ -92,6 +92,13 @@
             {{ account_form.church_region(class="form-control",placeholder="church region",value=usr_account.church_region)}}<br>
             {% if account_form.church_region.errors %}
                 {% for error in account_form.church_region.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+            {% endif %}
+        </div>
+        <div class="group">
+            {{ account_form.image.label }}<br>
+            {{ account_form.image(class="form-control",placeholder="church region",value=usr_account.image)}}<br>
+            {% if account_form.image.errors %}
+                {% for error in account_form.image.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
             {% endif %}
         </div>
         <div style="" class="group">

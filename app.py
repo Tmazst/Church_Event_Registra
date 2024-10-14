@@ -85,13 +85,11 @@ def process_file(file):
         if file.filename == '':
             return 'No selected file'
 
-        if file.filename and allowed_files(file):
-            file_saved = file.save(os.path.join(app.config["UPLOADED"],new_file_name))
-            flash(f"File Upload Successful!!", "success")
-            return new_file_name
+        print("DEBUG FILE NAME: ", file.filename)
+        file_saved = file.save(os.path.join("static/images",new_file_name))
+        flash(f"File Upload Successful!!", "success")
+        return new_file_name
 
-        else:
-            return f"Allowed are [.txt, .xls,.docx, .pdf, .png, .jpg, .jpeg, .gif] only"
 
 
 def process_pop_file(file,usr_id):
