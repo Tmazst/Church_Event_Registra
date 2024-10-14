@@ -540,7 +540,7 @@ def reset_request():
                 app.config["MAIL_SERVER"] = "smtp.googlemail.com"
                 app.config["MAIL_PORT"] = 587
                 app.config["MAIL_USE_TLS"] = True
-                em = app.config["MAIL_USERNAME"] = os.getenv("EMAIL")
+                em = app.config["MAIL_USERNAME"] = "pro.dignitron@gmail.com" #os.getenv("EMAIL")
                 app.config["MAIL_PASSWORD"] = "abngvekbagyvosbw" # os.getenv("PWD")
 
                 mail = Mail(app)
