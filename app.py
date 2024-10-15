@@ -66,7 +66,7 @@ class user_class:
         try:
             user_id = s.loads(token, max_age=300)['user_id']
         except itsdangerous.SignatureExpired:
-           return f'Token has expired, Please Create a New Token'
+           return f'Token has expired!, Please Create a New Token'
         except itsdangerous.BadSignature:
             return f'Token has expired, Please Create a New Token'
         except:
