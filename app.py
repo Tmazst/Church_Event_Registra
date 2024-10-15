@@ -80,7 +80,7 @@ appConfig = {
     "OAUTH2_CLIENT_ID" : os.getenv('clientid'),
     "OAUTH2_CLIENT_SECRET":os.getenv('clientps'),
     "OAUTH2_META_URL":"",
-    "FLASK_SECRET":"sdsdjsdsdjfe832j2rj_32jfesdsdjfe832j2rj32j832j2rj_32j",
+    "FLASK_SECRET":"sdsdjsdsdjfe832j2rj_32jfesdsdjfe832j2rj32j832",
     "FLASK_PORT": 5000  
 }
 
