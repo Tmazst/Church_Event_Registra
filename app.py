@@ -77,8 +77,8 @@ class user_class:
 
 appConfig = {
 
-    "OAUTH2_CLIENT_ID" : "756049391970-ke4q8oqpfo574lrn932cbl6e33ah1h3u.apps.googleusercontent.com",
-    "OAUTH2_CLIENT_SECRET":"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",
+    "OAUTH2_CLIENT_ID" : os.getenv('clientid'),
+    "OAUTH2_CLIENT_SECRET":os.getenv('clientps'),
     "OAUTH2_META_URL":"",
     "FLASK_SECRET":"sdsdjsdsdjfe832j2rj_32jfesdsdjfe832j2rj32j832j2rj_32j",
     "FLASK_PORT": 5000  
