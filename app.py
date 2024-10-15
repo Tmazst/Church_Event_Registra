@@ -1,5 +1,5 @@
 
-from flask import Flask,render_template,url_for,redirect,request,flash,jsonify
+from flask import Flask,render_template,url_for,redirect,request,flash,jsonify,session
 from flask_login import login_user, LoginManager,current_user,logout_user, login_required
 from Forms import *
 from models import *
@@ -15,6 +15,7 @@ from flask_colorpicker import colorpicker
 from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
 import itsdangerous
 from sqlalchemy.exc import IntegrityError
+from authlib.integrations.flask_client import OAuth
 
 
 
@@ -30,7 +31,7 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle':280}
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["UPLOADED"] = 'static/uploads'
-
+oauth = OAuth(app)
 db.init_app(app)
 
 application = app
@@ -72,6 +73,31 @@ class user_class:
             return f'Something Went Wrong'
          
         return user_id
+
+
+appConfig = {
+
+    "OAUTH2_CLIENT_ID" : "756049391970-ke4q8oqpfo574lrn932cbl6e33ah1h3u.apps.googleusercontent.com",
+    "OAUTH2_CLIENT_SECRET":"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",
+    "OAUTH2_META_URL":"",
+    "FLASK_SECRET":"sdsdjsdsdjfe832j2rj_32jfesdsdjfe832j2rj32j832j2rj_32j",
+    "FLASK_PORT": 5000  
+}
+
+
+oauth.register("Registra",
+               client_id = appConfig.get("OAUTH2_CLIENT_ID"),
+               client_secret = appConfig.get("OAUTH2_CLIENT_SECRET"),
+                access_token_url='https://accounts.google.com/o/oauth2/token',
+                access_token_params=None,
+                authorize_url='https://accounts.google.com/o/oauth2/auth',
+                authorize_params=None,
+                api_base_url='https://www.googleapis.com/',
+                userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo', 
+               client_kwargs={
+                   "scope" : "openid email profile"
+               }
+               )
 
 
 def process_file(file):
@@ -797,6 +823,22 @@ def admin_account():
 
     return render_template('admin_account.html')
 
+#google login
+@app.route("/google_login", methods=["POST","GET"])
+def google_login():
+
+    return oauth.Registra.authorize_redirect(redirect_uri=url_for("google_signin",_external=True))
+
+
+#login redirect
+@app.route("/google_signin", methods=["POST","GET"])
+def google_signin():
+
+    token = oauth.Registra.authorize_access_token()
+
+    session['user'] = token
+
+    return redirect(url_for('home'))
 
 #Verification Pending
 @app.route("/login", methods=["POST","GET"])

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .form-fields{
+        display:flex;
+        flex-direction:column;
+    }
+    section{ background-image:url(static/images/bg_service.png) }
+</style>
+<div class="flash-messages" id="">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for  category, message in messages %}
+                <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+<br><br><br>
+
+
+<div style="border:1px solid coral;border-radius: 15px;padding:25px 10px;max-width:fit-content;margin:0 auto" class="">
+   <div class="registered-users-cont">
+        <div class="registered-user">
+            <div class="user-info">
+                <!-- <div style="height:200px;width:200px" class="general-flex">
+                    <img style="height:inherit" class="prf-image" src="static/icons/tick-icon.png" alt="" />
+                </div> -->
+                <div style="height: ;margin:0 auto" class="img-cont">
+                    <div style=""><img class="prf-image"  src="static/images/{{user.image}}" alt=""/></div>
+                </div>
+                <div class="session-title">
+                    <h3 >Registration Card</h3>
+                </div><br>
+                <h4 style="margin-bottom: 0;color:coral;text-align: left;">{{user.name}} Registration Details</h4><br>
+                
+                <h5 style="margin-bottom: 0;color:rgb(82, 82, 82);text-align: left;">{{event_details.event_title}}</h5><br>
+                <div class="icons-cont"><img class="icons" src='static/icons/email-icon.png' /><small class="">{{user.email}}</small></div>
+                <div class="icons-cont"><img class="icons" src='static/icons/church-icon.png' /><small class="">{{user.church_local}},{{user.church_circuit}},{{user.church_region}}</small></div>
+                <small class="">Date:</small>
+                <small class="">{{event_details.start_date}} - {{event_details.start_date}}</small><br>
+                <small class="">Token:</small>
+                <small class="">{{reg_info.query.filter_by(usr_id=user.id).first().transaction_token}}</small><br><br><br>
+                <div style="height:50px;width:50px;flex-direction: row !important;" class="general-flex">
+                    <img style="height:inherit" class="prf-image" src="static/icons/tick-icon.png" alt="" />
+                    
+                </div>
+                <img style="height:50px" class="" src="{{ url_for('static', filename='images/aec_logo.JPG') }}" /><br>
+                <small style="color:coral;font-weight:600" class="">Please Note: Full Details of Registration are sent to your registered email</small><br>
+            </div>
+        </div>
+    </div>
+</div><br><br>
+
+<script>
+</script>
+{% endblock %}
