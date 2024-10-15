@@ -93,10 +93,6 @@ appConfig = {
 oauth.register("Registra",
                client_id = appConfig.get("OAUTH2_CLIENT_ID"),
                client_secret = appConfig.get("OAUTH2_CLIENT_SECRET"),
-                access_token_url='https://accounts.google.com/o/oauth2/token',
-                access_token_params=None,
-                authorize_url='https://accounts.google.com/o/oauth2/auth',
-                authorize_params=None,
                 api_base_url='https://www.googleapis.com/',
                 userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo', 
                client_kwargs={
