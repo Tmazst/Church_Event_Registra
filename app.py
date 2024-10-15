@@ -96,7 +96,9 @@ oauth.register("Registra",
                 userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo', 
                client_kwargs={
                    "scope" : "openid email profile"
-               }
+               },
+               server_metadata_url= 'https://accounts.google.com/.well-known/openid-configuration',
+               jwks_uri = "https://www.googleapis.com/oauth2/v3/certs"
                )
 
 
