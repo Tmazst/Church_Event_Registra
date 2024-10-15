@@ -845,7 +845,7 @@ def google_signin():
 
     print(pretty)
 
-    return redirect(url_for("user_info.html"))
+    return redirect(url_for("home"))
 
 #Verification Pending
 @app.route("/login", methods=["POST","GET"])
