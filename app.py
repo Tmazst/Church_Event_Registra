@@ -841,7 +841,7 @@ def google_signin():
 
     session['user'] = token
 
-    pretty=json.dumps(session.get("user"),indent=4)
+    pretty=session.get("user")
 
     usr_info = pretty.get('user_info')
     verified = usr_info.get("email_verified")
