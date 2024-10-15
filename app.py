@@ -827,6 +827,8 @@ def admin_account():
 @app.route("/google_login", methods=["POST","GET"])
 def google_login():
 
+    print("DEBUG CREDITENTAILS: ",appConfig.get("OAUTH2_CLIENT_ID"),' ',appConfig.get("OAUTH2_CLIENT_SECRET"))
+
     return oauth.Registra.authorize_redirect(redirect_uri=url_for("google_signin",_external=True))
 
 
