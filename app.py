@@ -843,7 +843,7 @@ def google_signin():
 
     pretty=session.get("user")
 
-    usr_info = pretty.get('user_info')
+    usr_info = pretty.get('userinfo')
     verified = usr_info.get("email_verified")
     usr_email = usr_info.get("email")
     usr_name=usr_info.get("name")
