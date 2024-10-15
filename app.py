@@ -849,7 +849,7 @@ def google_signin():
     usr_name=usr_info.get("name")
     usr_athash=usr_info.get("at_hash")
 
-    if verified != 'true':
+    if verified != 'True':
         print("VERIFIED CHECK: ", verified)
         flash("Access Denied!, Your Email is not verified with Google")
         flash("Please, Set up your account manually")
