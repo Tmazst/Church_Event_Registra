@@ -16,6 +16,7 @@ from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
 import itsdangerous
 from sqlalchemy.exc import IntegrityError
 from authlib.integrations.flask_client import OAuth
+import json
 
 
 
@@ -47,6 +48,10 @@ def load_user(user_id):
 ALLOWED_EXTENSIONS = {"txt", "xlxs", 'docx', 'pdf', 'png', 'jpg', 'jpeg', 'gif',"JPG"}
 
 
+# Load secrets from JSON file
+with open('client.json') as f:
+    creds = json.load(f)
+
 def allowed_files(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -77,8 +82,8 @@ class user_class:
 
 appConfig = {
 
-    "OAUTH2_CLIENT_ID" : os.getenv('clientid'),
-    "OAUTH2_CLIENT_SECRET":os.getenv('clientps'),
+    "OAUTH2_CLIENT_ID" : creds['clientid'],
+    "OAUTH2_CLIENT_SECRET":creds['clientps'],
     "OAUTH2_META_URL":"",
     "FLASK_SECRET":"sdsdjsdsdjfe832j2rj_32jfesdsdjfe832j2rj32j832",
     "FLASK_PORT": 5000  
