@@ -47,10 +47,10 @@ def load_user(user_id):
 
 ALLOWED_EXTENSIONS = {"txt", "xlxs", 'docx', 'pdf', 'png', 'jpg', 'jpeg', 'gif',"JPG"}
 
-
-# Load secrets from JSON file
-with open('client.json') as f:
-    creds = json.load(f)
+if os.path.exists('client.json'):
+    # Load secrets from JSON file
+    with open('client.json') as f:
+        creds = json.load(f)
 
 def allowed_files(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -79,26 +79,26 @@ class user_class:
          
         return user_id
 
+if os.path.exists('client.json'):
+    appConfig = {
 
-appConfig = {
-
-    "OAUTH2_CLIENT_ID" : creds['clientid'],
-    "OAUTH2_CLIENT_SECRET":creds['clientps'],
-    "OAUTH2_META_URL":"",
-    "FLASK_SECRET":"sdsdjsdsdjfe832j2rj_32jfesdsdjfe832j2rj32j832",
-    "FLASK_PORT": 5000  
-}
+        "OAUTH2_CLIENT_ID" : creds['clientid'],
+        "OAUTH2_CLIENT_SECRET":creds['clientps'],
+        "OAUTH2_META_URL":"",
+        "FLASK_SECRET":"sdsdjsdsdjfe832j2rj_32jfesdsdjfe832j2rj32j832",
+        "FLASK_PORT": 5000  
+    }
 
 
-oauth.register("Registra",
-               client_id = appConfig.get("OAUTH2_CLIENT_ID"),
-               client_secret = appConfig.get("OAUTH2_CLIENT_SECRET"),
-                api_base_url='https://www.googleapis.com/',
-                userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo', 
-               client_kwargs={ "scope" : "openid email profile"},
-               server_metadata_url= 'https://accounts.google.com/.well-known/openid-configuration',
-               jwks_uri = "https://www.googleapis.com/oauth2/v3/certs"
-               )
+    oauth.register("Registra",
+                client_id = appConfig.get("OAUTH2_CLIENT_ID"),
+                client_secret = appConfig.get("OAUTH2_CLIENT_SECRET"),
+                    api_base_url='https://www.googleapis.com/',
+                    userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo', 
+                client_kwargs={ "scope" : "openid email profile"},
+                server_metadata_url= 'https://accounts.google.com/.well-known/openid-configuration',
+                jwks_uri = "https://www.googleapis.com/oauth2/v3/certs"
+                )
 
 
 def process_file(file):
@@ -849,7 +849,7 @@ def google_signin():
     usr_name=usr_info.get("name")
     usr_athash=usr_info.get("at_hash")
 
-    if verified != 'True':
+    if not verified:
         print("VERIFIED CHECK: ", verified)
         flash("Access Denied!, Your Email is not verified with Google")
         flash("Please, Set up your account manually")
