@@ -25,7 +25,9 @@ import json
 #Change App
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "sdsdjfe832j2rj_32j"
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///techxicons_db.db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///techxicons_db.db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:tmazst41@localhost/aec_registration_db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://techtlnf_tmaz:!Tmazst41#@localhost/techtlnf_aec_registration_db"
 # app.config[
 #     "SQLALCHEMY_DATABASE_URI"] = "mysql+mysqldb://Tmaz:Tmazst41@Tmaz.mysql.pythonanywhere-services.com:3306/Tmaz$users_db"
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle':280}
@@ -153,6 +155,9 @@ def inject_ser():
 
 @app.route("/", methods=['POST','GET'])
 def home():
+
+    with app.app_context():
+       db.create_all()
 
     event_details=None
 

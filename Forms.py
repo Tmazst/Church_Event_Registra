@@ -67,7 +67,8 @@ class OpenEventForm(FlaskForm):
 class RegistrationsForm(FlaskForm):
 
     transaction_id = StringField('Transaction Reference No. (optional)')
-    pop_image = FileField('Upload Proof of Payment', validators=[FileRequired()])
+    pop_image = FileField('Upload Proof of Payment')
+    no_pop = BooleanField('None')
     payment_platform = SelectField('Payment Platform',
                                   choices=[("AGCC FNB Account", "AGCC FNB Account"),("Your Regional Bank Acc.", "Your Regional Bank Acc.")])
     

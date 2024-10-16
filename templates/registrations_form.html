@@ -48,6 +48,10 @@
             {% endif %}
         </div>
         <div class="group">
+            {{ registration_form.no_pop.label }}
+            {{ registration_form.no_pop(class="") }}<br>
+        </div>
+        <div class="group">
             {{ registration_form.payment_platform.label }}<br>
             {{ registration_form.payment_platform(class="form-control",placeholder="e.g. Momo") }}<br>
             {% if registration_form.payment_platform.errors %}

@@ -54,7 +54,7 @@ class church_user(User):
     other = db.Column(db.String(120))
     other2 = db.Column(db.String(120))
     other3 = db.Column(db.String(120))
-    image = db.Column(db.String(30), nullable=True)
+    # image = db.Column(db.String(30), nullable=True)
     pop_ids = relationship("pop_transactions", backref='church_user', lazy=True)
     # jobs_applied_for = relationship("Applications", backref='Applications.job_title', lazy=True)
     # hired_user = relationship("hired", backref='Hired Applicant', lazy=True)
@@ -75,7 +75,7 @@ class admin_user(User):
     other2 = db.Column(db.String(120))
     other3 = db.Column(db.String(120))
     admin_code = db.Column(db.Numeric(5),unique=True,nullable=True)
-    image = db.Column(db.String(30), nullable=True)
+    image_ad = db.Column(db.String(30), nullable=True)
     pop_id = relationship("pop_transactions", backref='admin_user', lazy=True)
     session_id = relationship("open_event", backref='admin_user', lazy=True)
 
@@ -98,15 +98,15 @@ class open_event(db.Model):
     event_theme = db.Column(db.String(60), nullable=True)
     event_other_info = db.Column(db.String(60), nullable=True)
     registration_group1=db.Column(db.String(80))
-    reg_fee_amnt1=db.Column(db.Float(80), nullable=True)
+    reg_fee_amnt1=db.Column(db.Float, nullable=True)
     registration_group2=db.Column(db.String(80))
-    reg_fee_amnt2=db.Column(db.Float(80), nullable=True)
+    reg_fee_amnt2=db.Column(db.Float, nullable=True)
     registration_group3=db.Column(db.String(80))
-    reg_fee_amnt3=db.Column(db.Float(80), nullable=True)
+    reg_fee_amnt3=db.Column(db.Float, nullable=True)
     registration_group4=db.Column(db.String(80))
-    reg_fee_amnt4=db.Column(db.Float(80), nullable=True)
+    reg_fee_amnt4=db.Column(db.Float, nullable=True)
     event_closed = db.Column(db.Boolean, default=False)
-    timestamp = db.Column(db.Date, nullable=False) #DateTime
+    timestamp = db.Column(db.DateTime, nullable=False) #DateTime
 
 #For registration
 class pop_transactions(db.Model):
@@ -118,7 +118,7 @@ class pop_transactions(db.Model):
     # event_id = db.Column(db.Integer, ForeignKey('sessions.id'))
     transaction_id = db.Column(db.String(120), unique=True)
     transaction_token = db.Column(db.String(120), unique=True)
-    timestamp = db.Column(db.Date, nullable=False)
+    timestamp = db.Column(db.DateTime, nullable=False)
     denom_structure = db.Column(db.String(120))#
     age_group = db.Column(db.String(120))
     special_diet = db.Column(db.String(120))#

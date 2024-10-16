@@ -24,7 +24,11 @@
   <div class="login-cont flex-general">
     
       <form style="background-color:;flex-direction:column;z-index:1000;" class="" _lpchecked="1" action="" method="post">
-        <h1 style="float:left;text-align: left;">Hello,<br><span style="font-size:medium;color:rgb(102, 102, 102);">Please Sign-up</span></h1>
+        <div class="flex-general" style="flex-direction: column;align-items: flex-start;">
+            <h1  style="align-self: flex-start !important;text-align: left;">Hello,<br><span style="font-size:medium;color:rgb(102, 102, 102);">Please Sign-up</span></h1>
+            <a href="{{url_for('google_login')}}"><div class="flex-general" ><h4>Continue with </h4>
+            <img class="ggl-img" style="height: 35px;" src="static/icons/google.jpg" /> </div></a>
+        </div>
             {{register.hidden_tag()}}
             <div class="group">
                 {{ register.name(class="form-control",placeholder="name") }}<br>
