@@ -47,8 +47,8 @@
                 {% for error in registration_form.pop_image.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
             {% endif %}
         </div>
-        <div class="group">
-            {{ registration_form.no_pop.label }}
+        <div style="margin-left:15px;" class="group">
+            {{ registration_form.no_pop.label(style="color:grey") }}
             {{ registration_form.no_pop(class="") }}<br>
         </div>
         <div class="group">

@@ -244,8 +244,8 @@ def reg_confirmation():
         app.config["MAIL_PORT"] = 587
         app.config["MAIL_USE_TLS"] = True
         # Creditentials saved in environmental variables
-        em = app.config["MAIL_USERNAME"] = "pro.dignitron@gmail.com"  # os.getenv("MAIL")
-        app.config["MAIL_PASSWORD"] = "abngvekbagyvosbw" #os.getenv("PWD")
+        em = app.config["MAIL_USERNAME"] = creds.get('email')  # os.getenv("MAIL")
+        app.config["MAIL_PASSWORD"] = creds.get('gpass') #os.getenv("PWD")
         app.config["MAIL_DEFAULT_SENDER"] = "noreply@gmail.com"
 
         mail = Mail(app)
@@ -593,8 +593,8 @@ def reset_request():
                 app.config["MAIL_SERVER"] = "smtp.googlemail.com"
                 app.config["MAIL_PORT"] = 587
                 app.config["MAIL_USE_TLS"] = True
-                em = app.config["MAIL_USERNAME"] = "pro.dignitron@gmail.com" #os.getenv("EMAIL")
-                app.config["MAIL_PASSWORD"] = "abngvekbagyvosbw" # os.getenv("PWD")
+                em = app.config["MAIL_USERNAME"] = creds.get('email') #os.getenv("EMAIL")
+                app.config["MAIL_PASSWORD"] = creds.get('gpass') # os.getenv("PWD")
 
                 mail = Mail(app)
 
@@ -676,8 +676,8 @@ def verification():
         app.config["MAIL_PORT"] = 587
         app.config["MAIL_USE_TLS"] = True
         # Creditentials saved in environmental variables
-        em = app.config["MAIL_USERNAME"] = "pro.dignitron@gmail.com"  # os.getenv("MAIL")
-        app.config["MAIL_PASSWORD"] =  "abngvekbagyvosbw" #os.getenv("PWD")
+        em = app.config["MAIL_USERNAME"] = creds.get('email')  # os.getenv("MAIL")
+        app.config["MAIL_PASSWORD"] =  creds.get('gpass') #os.getenv("PWD")
         app.config["MAIL_DEFAULT_SENDER"] = "noreply@gmail.com"
 
         mail = Mail(app)
