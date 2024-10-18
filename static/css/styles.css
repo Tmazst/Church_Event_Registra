@@ -899,7 +899,7 @@ h1,h2,h3,h4{
 
 #abbr-style small{
     background-color:var(--main-color);
-    border:3px solid coral;
+    border:3px solid rgb(216, 216, 216);
     border-radius:20%;
     padding:5px;
     height:30px ;

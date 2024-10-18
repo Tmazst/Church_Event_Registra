@@ -34,6 +34,7 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle':280}
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["UPLOADED"] = 'static/uploads'
+
 oauth = OAuth(app)
 db.init_app(app)
 
@@ -223,6 +224,7 @@ def opened_event_edit():
         
         db.session.commit()
         flash("Update Successful!","success")
+        return redirect(url_for('home'))
 
     return render_template('opened_event_edit.html',open_reg_form=open_reg_form,event_details=event_edit)
 
