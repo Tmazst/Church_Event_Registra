@@ -51,11 +51,13 @@
           <li class="other-nav-item">
             <a class="nav-link" href="/user_account">My Account</a>
           </li>
+          {% if current_user.is_authenticated  and current_user.role == "church_user"%}
           {% if pop_transts.query.filter_by(usr_id=current_user.id).first() %}
           <div class="navbar-separator"></div>
           <li class="other-nav-item">
             <a class="nav-link" href="/already_registered">View My Card</a>
           </li>
+          {% endif %}
           {% endif %}
           <div class="navbar-separator"></div>
           <li class="other-nav-item">
