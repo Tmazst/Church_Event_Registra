@@ -27,7 +27,7 @@
     
 </div><br>
 {% for user in registered_users %}
-{% if reg_details.query.filter_by(usr_id=user.id).first().pop_image %}
+
 <div class="">
    <div class="registered-users-cont">
         <div class="registered-user">
@@ -104,7 +104,7 @@
    </div>
   
 </div>
-{% endif %}
+
 {% endfor %}
 
 <script>
