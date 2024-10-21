@@ -78,6 +78,7 @@
             </div>
 
             <!-- Pop-up -->
+            {% if reg_details.query.filter_by(usr_id=user.id).first().pop_image %}
             <div id="pop_image_{{user.id}}" class="pop-cont">
                 <div id="popup_{{user.id}}" class="pop-up">
                     {% set pop_img = reg_details.query.filter_by(usr_id=user.id).first().pop_image %}
@@ -99,6 +100,7 @@
                     <div  style="align-self:flex-end;width:60%" ><input onclick="closePopup('{{user.id}}')" class="btns" type="button" value="Exit"></div>
                 </div>
             </div>
+            {% endif %}
 
         </div>
    </div>
