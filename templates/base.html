@@ -22,7 +22,7 @@
    </nav>
    {% endif %}
 
-   {% if current_user.role == "admin_user" %}
+   {% if current_user.is_authenticated %}
 <!--    <button class="menu burger">Menu</button>-->
     <div  onclick="openMenuFunc()" class="menu-icon">
         <div class="stroke"></div>
@@ -30,16 +30,19 @@
         <div class="stroke"></div>
     </div>
     {% endif %}
+    
 
     <div class="other-nav">
         <ul class="other-navbar-nav">
           <li class="other-nav-item active">
             <a class="nav-link" href="/">Home</a>
           </li>
+          {% if current_user.role == "admin_user" %}
           <div class="navbar-separator"></div>
           <li class="other-nav-item">
-            <a class="nav-link" href="/registered_users">Registered Users</a>
+            <a class="nav-link" href="/registrations">Registered Users</a>
           </li>
+          {% endif %}
           <div class="navbar-separator"></div>
           <li class="other-nav-item">
             <a class="nav-link" href="/user_registration_form">Register</a>
@@ -48,14 +51,28 @@
           <li class="other-nav-item">
             <a class="nav-link" href="/user_account">My Account</a>
           </li>
-          <div class="navbar-separator"></div> 
+          {% if pop_transts.query.filter_by(usr_id=current_user.id).first() %}
+          <div class="navbar-separator"></div>
+          <li class="other-nav-item">
+            <a class="nav-link" href="/already_registered">View My Card</a>
+          </li>
+          {% endif %}
+          <div class="navbar-separator"></div>
+          <li class="other-nav-item">
+            <a class="nav-link" href="https://www.google.com/maps/place/-26.482515, 31.312862">Find Location</a>
+          </li>
+          <div class="navbar-separator"></div>
+          
           <!-- <li class="other-nav-item">
-            <a class="nav-link" href="/open_event_form" >Open Event</a>
+            <a class="nav-link" href="/open_event_form" >View Card</a>
           </li>
           <div class="navbar-separator"></div> -->
+          
+          {% if current_user.role == "admin_user" %}
             <li class="other-nav-item">
             <a class="nav-link" href="/contact" >Close Event</a>
           </li>
+          {% endif %}
         </ul>
     </div>
 
