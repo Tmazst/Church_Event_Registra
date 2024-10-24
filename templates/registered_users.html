@@ -39,7 +39,7 @@
                 <table class="tftable" border="1">
                     <tr><th>Date</th><th>Name</th><th>Account</th><th>Proof</th><th>Local Church</th><th>Circuit</th><th>Region</th></tr>
                     {% for entry in reg_details %}
-                    {% set user_info = user.query.get(entry.usr_id)%}
+                    {% set user_info = users.query.get(entry.usr_id)%}
                         <tr><td>{{entry.timestamp.strftime("%d %b %y")}}</td><td>{{user_info.name}}</td><td>{{entry.payment_platform}}</td>
                             {% if entry.pop_image %}<td>Yes</td>{% else %}<td>No</td>{% endif %}<td>{{user_info.church_local}}</td><td>{{user_info.church_circuit}}</td>
                             <td>{{user_info.church_region}}</td></tr>
