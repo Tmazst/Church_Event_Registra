@@ -26,8 +26,8 @@ import json
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "sdsdjfe832j2rj_32j"
 # app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///techxicons_db.db"
-# app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:tmazst41@localhost/aec_registration_db"
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://techtlnf_tmaz:!Tmazst41#@localhost/techtlnf_aec_registration_db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:tmazst41@localhost/aec_registration_db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://techtlnf_tmaz:!Tmazst41#@localhost/techtlnf_aec_registration_db"
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle':280}
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -459,7 +459,7 @@ def sign_up():
         #print(register.errors)
 
     # from myproject.models import user
-    return render_template("signup.html",register=register)
+    return render_template("manual_signup.html",register=register)
 
 @app.route("/admin_signup", methods=["POST","GET"])
 def admin_signup():
@@ -829,11 +829,16 @@ def admin_account():
 
     return render_template('admin_account.html')
 
+@app.route("/google_signup", methods=["POST","GET"])
+def google_signup():
+
+    return render_template('google_signup.html')
+
 #google login
 @app.route("/google_login", methods=["POST","GET"])
 def google_login():
 
-    print("DEBUG CREDITENTAILS: ",appConfig.get("OAUTH2_CLIENT_ID"),' ',appConfig.get("OAUTH2_CLIENT_SECRET"))
+    # print("DEBUG CREDITENTAILS: ",appConfig.get("OAUTH2_CLIENT_ID"),' ',appConfig.get("OAUTH2_CLIENT_SECRET"))
 
     return oauth.Registra.authorize_redirect(redirect_uri=url_for("google_signin",_external=True))
 
