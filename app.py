@@ -403,7 +403,7 @@ def registrations():
     registered_users = church_user.query.all()
     registered_no = pop_transactions.query.all()
 
-    return render_template('registrations.html',user=registered_users,reg_details=pop_transactions,registered_no=registered_no)
+    return render_template('registrations.html',users=registered_users,reg_details=pop_transactions,registered_no=registered_no)
 
 @app.route("/registration_success", methods=["POST", "GET"])
 @login_required
