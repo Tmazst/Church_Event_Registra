@@ -148,8 +148,9 @@ encry_pw = Bcrypt()
 @app.context_processor
 def inject_ser():
     event = open_event.query.filter_by(event_closed=False).first()
+    user_no_base=User.query.all()
 
-    return dict(event_details=event,pop_transts=pop_transactions)
+    return dict(event_details=event,pop_transts=pop_transactions,user_no_base=user_no_base)
 
 
 @app.route("/", methods=['POST','GET'])

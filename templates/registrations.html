@@ -28,7 +28,7 @@
     <h2>{{event_details.start_date.strftime("%d %b %y")}} - {{event_details.end_date.strftime("%d %b %y")}}</h2><br>
     <h2 style="color:coral">  Registrations </h2>
     <h5 style="color:coral;margin:auto 0;text-align:center"><span style="font-size: 20px;">{{registered_no|length}}</span> Registered <span style="font-size: 20px;color:black">|</span>  
-        <span style="color:rgb(107, 107, 107);margin:auto 0;text-align:center"><span style="font-size: 20px;">{{registered_users|length}}</span> Users</span></h5>
+        <span style="color:rgb(107, 107, 107);margin:auto 0;text-align:center"><span style="font-size: 20px;">{{user_no_base|length}}</span> Users</span></h5>
     
 </div><br>
 {% for user in registered_users %}
@@ -54,6 +54,8 @@
             <div id="reg-info-{{user.id}}" style="padding:;background-color:rgb(240, 238, 238)" class="registration-info">
                 <div class="icons-cont sub-topic"><img class="icons" src='static/icons/registration-icon.png' /><div style="" class="sub-topic">Registration Info</div></div>
                 <div class="general-flex" style="padding:10px; align-items: flex-start !important;flex-direction:column">
+                    <small class="labels">Contacts</small>
+                    <small>{{user.contacts}}</small>
                     <small class="labels">Proof of Payment</small>
                     <div onclick="popUp('{{user.id}}')" class="btns">Open</div>
                     <small class="labels">Payment Platform</small>
