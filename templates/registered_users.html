@@ -1,0 +1,53 @@
+
+
+
+
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div style="justify-content: flex-start;padding:10px;width:70%;background-color: rgb(237, 238, 238);margin:0 auto;border-radius: 10px;" class="general-flex">
+    <a style="background-color: ;z-index:500" href="/registered_users" ><div><img style="height:35px" class="icons" src='static/icons/table-icon.png' /></div></a>
+    <a style="background-color: ;z-index:500"  href="/registrations" ><img style="height:35px" class="icons" src='static/icons/list-icon.png' /></a>
+</div>
+        
+<div id="contact-us" style="width:70%;margin:150px auto; padding:20px;border-radius: 20px;" class="border-spec">
+        <div class="flash-messages" class="btns">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for  category, message in messages %}
+                        <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}</div>
+            <h5 style="color:coral;margin:auto 0;text-align:center"><span style="font-size: 20px;">{{registered_no|length}}</span> Registered <span style="font-size: 20px;color:black">|</span>  
+                <span style="color:rgb(107, 107, 107);margin:auto 0;text-align:center"><span style="font-size: 20px;">{{registered_users|length}}</span> Users</span></h5>
+        <h1 >Registration Entries<br><span class="spans"></span></h1><br>
+        <style type="text/css">
+            .tftable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: white;border-collapse: collapse;}
+            .tftable th {font-size:12px;background-color:#acc8cc;border-width: 2px;padding: 8px;border-style: solid;border-color: white;text-align:left;}
+            .tftable tr {background-color:#d4e3e5;}
+            .tftable td:first-child{width:75px}
+            .tftable td:nth-child(2){width:150px}
+            .tftable td:nth-child(3){width:75px}
+            .tftable td {font-size:12px;font-weight:500;border-width: 2px;padding: 8px;border-style: solid;border-color: white;}
+            .tftable tr:hover {background-color:#ffffff;}
+            </style>
+        <div style="display: flex;gap:5px;background-color:;">
+            <div style="width: 100%;background-color: ;">
+                <h3>Registered Members</h3>
+                <table class="tftable" border="1">
+                    <tr><th>Date</th><th>Name</th><th>Account</th><th>Proof</th><th>Local Church</th><th>Circuit</th><th>Region</th></tr>
+                    {% for entry in reg_details %}
+                    {% set user_info = user.query.get(entry.usr_id)%}
+                        <tr><td>{{entry.timestamp.strftime("%d %b %y")}}</td><td>{{user_info.name}}</td><td>{{entry.payment_platform}}</td>
+                            {% if entry.pop_image %}<td>Yes</td>{% else %}<td>No</td>{% endif %}<td>{{user_info.church_local}}</td><td>{{user_info.church_circuit}}</td>
+                            <td>{{user_info.church_region}}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+            
+            
+</div>
+{% endblock %}

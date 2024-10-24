@@ -26,8 +26,8 @@ import json
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "sdsdjfe832j2rj_32j"
 # app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///techxicons_db.db"
-# app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:tmazst41@localhost/aec_registration_db"
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://techtlnf_tmaz:!Tmazst41#@localhost/techtlnf_aec_registration_db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:tmazst41@localhost/aec_registration_db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://techtlnf_tmaz:!Tmazst41#@localhost/techtlnf_aec_registration_db"
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle':280}
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -388,10 +388,10 @@ def already_registered():
 @login_required
 def registered_users():
 
-    registered_users = church_user.query.all()
-    registered_no = pop_transactions.query.all()
+    registered_users =pop_transactions.query.all()
+    # registered_no = pop_transactions.query.all()
 
-    return render_template('registered_users.html',registered_users=registered_users,reg_details=pop_transactions,registered_no=registered_no)
+    return render_template('registered_users.html',users=User,reg_details=registered_users)
 
 
 # User Registrations
@@ -402,7 +402,7 @@ def registrations():
     registered_users = church_user.query.all()
     registered_no = pop_transactions.query.all()
 
-    return render_template('registrations.html',registered_users=registered_users,reg_details=pop_transactions,registered_no=registered_no)
+    return render_template('registrations.html',user=registered_users,reg_details=pop_transactions,registered_no=registered_no)
 
 @app.route("/registration_success", methods=["POST", "GET"])
 @login_required

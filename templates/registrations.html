@@ -18,6 +18,11 @@
     {% endwith %}
 </div>
 <br><br><br>
+
+<div style="justify-content: flex-start;padding:10px;width:70%;background-color: rgb(237, 238, 238);margin:0 auto;border-radius: 10px;" class="general-flex">
+    <a href="/registered_users" ><img style="height:35px" class="icons" src='static/icons/table-icon.png' /></a>
+    <a href="/registrations" ><img style="height:35px" class="icons" src='static/icons/list-icon.png' /></a>
+</div>
 <div class="session-title">
     <h2 style="margin-bottom:0;">{{event_details.event_title}}</h2>
     <h2>{{event_details.start_date.strftime("%d %b %y")}} - {{event_details.end_date.strftime("%d %b %y")}}</h2><br>
