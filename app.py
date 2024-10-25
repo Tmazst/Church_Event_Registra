@@ -368,7 +368,7 @@ def user_registration_form_edit():
             file =  process_pop_file(registration_form.pop_image.data,current_user.id)
             usr_reg_details.pop_image = file
 
-        if registration_form.payment_platform.data == 'AGCC FNB Account' and not usr_reg_details.pop_image:
+        if registration_form.payment_platform.data == 'AGCC FNB Account' and not registration_form.pop_image.data:
             flash("Error! Please Upload your Proop of Payment or else Choose other options", "error")
             return redirect(url_for("user_registration_form_edit"))
         else:
