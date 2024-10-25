@@ -199,6 +199,10 @@ a:hover{opacity: 0.81;}
     border-radius: 20px;
 }
 
+.display-none{
+    display: none;
+}
+
 .registration-info{
     display: none;
     width:80%;

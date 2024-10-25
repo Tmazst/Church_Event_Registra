@@ -27,7 +27,7 @@
     <div class="icons-cont"><img class="icons" src='static/icons/church-icon.png' />{% if user.church_local %}<small class="">{{user.church_local}}, {{user.church_circuit}}
          Circuit, {{user.church_region}}</small></div>
 {% else %}<a href="/account">{{user.church_local}} Finish Sign-up</a>{% endif %}
-<small>Joined: {{user.timestamp.strftime("%d %b %y")}}</small>
+{% if user.timestamp %}<small>Joined: {{user.timestamp.strftime("%d %b %y")}}</small>{% endif %}
 </div><br>
 
 {% if event_details %}
@@ -40,18 +40,8 @@
             {{event_details.end_date}},<br>
             @{{event_details.event_venue}}</span></h1>
         {{registration_form.hidden_tag()}}
-        <div class="group">
-            {{ registration_form.pop_image.label }}<br>
-            {{ registration_form.pop_image(class="form-control") }}<br>
-            {% if registration_form.pop_image.errors %}
-                {% for error in registration_form.pop_image.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
-            {% endif %}
-        </div>
-        <div style="margin-left:15px;" class="group">
-            {{ registration_form.no_pop.label(style="color:grey") }}
-            {{ registration_form.no_pop(class="") }}<br>
-        </div>
-        <div class="group">
+
+        <div id="payment_platform" class="group">
             {{ registration_form.payment_platform.label }}<br>
             {{ registration_form.payment_platform(class="form-control",placeholder="e.g. Momo") }}<br>
             {% if registration_form.payment_platform.errors %}
@@ -59,6 +49,15 @@
             {% endfor %}
             {% endif %}
         </div>
+
+        <div id="compulsury-pop" style="position: relative;" class="group">
+            {{ registration_form.pop_image.label }}<br>
+            {{ registration_form.pop_image(class="form-control") }}<br>
+            {% if registration_form.pop_image.errors %}
+                {% for error in registration_form.pop_image.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+            {% endif %}
+        </div>
+
         <div class="group">
             {{ registration_form.denom_structure.label }}<br>
             {{ registration_form.denom_structure(class="form-control",placeholder="Structure") }}<br>
@@ -105,6 +104,52 @@
 {% endif %}
 
 <script>
-    
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const paymentPlatformSelect = document.querySelector('select[name="payment_platform"]');
+    //     const popImageComp = document.getElementById('compulsury-pop');
+    //     const popImagDefault = document.getElementById('default-pop');
+
+    //     function toggleFileFields() {
+    //         console.log("Change Identified: ", paymentPlatformSelect.value);
+
+            // $.post("/user_registration_form", { platform: paymentPlatformSelect.value }, function(response) {
+            //     // Optionally handle response if needed
+            // });
+
+
+            // Use the Fetch API
+            // fetch('/user_registration_form', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify({ platform: paymentPlatformSelect.value })
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     // Optionally handle response if needed
+            //     console.log(data);
+            //     console.log(data);
+            // })
+            // .catch(error => console.error('Error:', error));
+
+
+
+    //         if (paymentPlatformSelect.value === 'AGCC FNB Account') {
+    //             popImageComp.style.display = 'block'; // Show pop_image
+    //             popImageComp.required = 'true'
+    //         } else if (paymentPlatformSelect.value === '"My Regional Bank"') {
+    //             popImagDefault.style.display = 'block'; // Show pop_image_comp
+    //             popImageComp.required = 'false'
+    //         }else {
+    //             popImageComp.style.display = 'none'; // Hide pop_image_comp
+    //             popImagDefault.style.display = 'none'; // Hide pop_image_comp
+    //             popImageComp.required = 'false'
+    //         }
+    //     };
+
+    //     paymentPlatformSelect.addEventListener('change', toggleFileFields);
+    //     toggleFileFields(); // Run on initial load to set correct state
+    // });
 </script>
 {% endblock %}

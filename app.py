@@ -331,9 +331,13 @@ def reg_confirmation():
 @login_required
 def user_registration_form():
     val_registration = None
+    # selected_platform = request.form.get('platform')
     registration_form = RegistrationsForm()
     get_user = User.query.get(current_user.id)
     event = open_event.query.filter_by(event_closed=False).first()
+
+    # Update validators based on selection
+    # registration_form.update_validators(registration_form.payment_platform.data)
 
     if event:
         val_registration = pop_transactions.query.filter_by(usr_id=current_user.id).first()
@@ -344,7 +348,7 @@ def user_registration_form():
         return redirect(url_for("already_registered"))# redirect(url_for("home"))
     
     if not current_user.church_local and not current_user.church_circuit:
-        flash("Please Finish Your Account Setup, First, You're Almost There!","warning")
+        flash("Please Finish Up Your Account Setup, First. You're Almost Done!","success")
         return redirect(url_for("finish_signup"))
     
     if registration_form.validate_on_submit():
@@ -358,12 +362,26 @@ def user_registration_form():
         if registration_form.pop_image.data:
             file =  process_pop_file(registration_form.pop_image.data,current_user.id)
             registration.pop_image = file
+
+        # if request.args.get("pop_compulsory"):
+        #     print("Found POP COMPULSORY")
+        #     file =  process_pop_file(registration_form.pop_image.data,current_user.id)
+        #     registration.pop_image = file
+        # else:
+        #     print("Not Found POP COMPULSORY")
+
         
         db.session.add(registration)
 
         if not val_registration:
-            db.session.commit()
-            reg_confirmation()
+            if registration_form.payment_platform.data == 'AGCC FNB Account' and not registration.pop_image:
+                flash("Error! Please Upload your Proop of Payment or else Choose other options", "error")
+                return redirect(url_for("user_registration_form"))
+            else:
+                print("Payment Choice: ",registration_form.payment_platform.data)
+                # db.session.commit()
+                # reg_confirmation()
+
             # print("Confirmation Sent Successfully!")
         # else:
         #     flash(f"You are already registered.", "success")
@@ -432,6 +450,7 @@ def sign_up():
                          confirm_password=hashd_pwd, image="default.jpg",timestamp=datetime.now())
 
             try:
+                Register().validate_email(register.email.data)
                 db.session.add(user1)
                 db.session.commit()
                 flash(f"Account Successfully Created for {register.name.data}", "success")
@@ -941,7 +960,7 @@ def login():
 
                     if not current_user.church_local and not current_user.church_circuit:
                         print("Finish Setup")
-                        flash(f"Welcome! {user_login.name.title()}, Please Finish your Sign-up process", "success")
+                        flash(f"Welcome! {user_login.name.title()}, Please Finish Up your Sign-up process", "success")
                         return redirect(url_for('finish_signup'))
                 
                     return redirect(req_page) if req_page else redirect(url_for('home'))

@@ -8,7 +8,7 @@ from flask_wtf.file import FileField , FileAllowed,FileRequired
 
 class Register(FlaskForm):
 
-    name = StringField('name', validators=[DataRequired(),Length(min=2,max=20)])
+    name = StringField('name', validators=[DataRequired(),Length(min=2,max=24)])
     email = StringField('email', validators=[DataRequired(),Email()])
     password = PasswordField('password', validators=[DataRequired(), Length(min=8, max=64)])
     confirm = PasswordField('confirm', validators=[DataRequired(),EqualTo('password'), Length(min=8, max=64)])
@@ -68,9 +68,10 @@ class RegistrationsForm(FlaskForm):
 
     transaction_id = StringField('Transaction Reference No. (optional)')
     pop_image = FileField('Upload Proof of Payment')
+    pop_image_comp = FileField('Upload Proof of Payment')
     no_pop = BooleanField('None')
     payment_platform = SelectField('Payment Platform',
-                                  choices=[("AGCC FNB Account", "AGCC FNB Account"),("Your Regional Bank Acc.", "Your Regional Bank Acc.")])
+                                  choices=[("Not Yet Paid", "Not Yet Paid"),("AGCC FNB Account", "AGCC FNB Account"),("My Regional Bank", "My Regional Bank")])
     
     denom_structure = SelectField('Denominational Structure',
                             choices=[("None", "None"),("Board", "Board"),("Women's Committee", "Women's Committee"),("Men's Committee", "Men's Committee"),("Youth Committee", "Youth Committee")
@@ -80,6 +81,16 @@ class RegistrationsForm(FlaskForm):
     accommodation_bool = BooleanField('Accommodation Required?')
     accommodation_add_info = RadioField('Accommodation (Will you be staying at the conference venue?")',choices=[(0, "No"),(1, "Yes")])
     submit = SubmitField('Submit')
+
+    def update_validators(self, selected_payment):
+        if selected_payment == 'AGCC FNB Account':
+            # Require compulsory proof if AGCC is selected
+            self.pop_image_comp.validators = [DataRequired()]
+            print("POP Validated: ",selected_payment)
+        else:
+            # Remove validators for other selections
+            print("POP Validated ESlse: ",selected_payment)
+            self.pop_image_comp.validators = []
 
 
 class Login(FlaskForm):
