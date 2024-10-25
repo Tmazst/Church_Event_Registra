@@ -373,6 +373,9 @@ def user_registration_form_edit():
             else:
                 db.session.commit()
                 flash("Update Successful!", "success")
+    elif registration_form.errors:
+        for error in registration_form.errors:
+            print("Update Error: ",error)
 
         return redirect(url_for("registration_success"))
 
