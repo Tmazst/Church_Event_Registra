@@ -203,6 +203,11 @@ a:hover{opacity: 0.81;}
     display: none;
 }
 
+.other-nav-item a{
+    font-size:12px;
+    font-weight:500;
+}
+
 .registration-info{
     display: none;
     width:80%;

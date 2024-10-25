@@ -326,6 +326,60 @@ def reg_confirmation():
     # except:
 
 
+
+#User Registrations Form
+@app.route("/user_registration_form_edit", methods=["POST", "GET"])
+@login_required
+def user_registration_form_edit():
+    val_registration = None
+    registration_form = RegistrationsForm()
+    get_user = User.query.get(current_user.id)
+    usr_reg_details = pop_transactions.query.filter_by(usr_id=current_user.id).first()
+    event = open_event.query.filter_by(event_closed=False).first()
+
+    if not usr_reg_details:
+        flash("Registration Form","success")
+        return redirect(url_for('user_registration_form'))
+
+    if event:
+        val_registration = pop_transactions.query.filter_by(usr_id=current_user.id).first()
+    
+    if val_registration:
+        flash(f"You are already registered.", "success")
+        # reg_confirmation()
+        return redirect(url_for("already_registered"))# redirect(url_for("home"))
+    
+    if not current_user.church_local and not current_user.church_circuit:
+        flash("Please Finish Up Your Account Setup, First. You're Almost Done!","success")
+        return redirect(url_for("finish_signup"))
+
+    if registration_form.validate_on_submit():
+
+        usr_reg_details.payment_platform=registration_form.payment_platform.data
+        usr_reg_details.denom_structure=registration_form.denom_structure.data
+        # usr_reg_details.accomodation = registration_form.accomodation.data
+        usr_reg_details.accommodation_bool=registration_form.accommodation_bool.data
+        usr_reg_details.accommodation_add_info=registration_form.accommodation_add_info.data
+        usr_reg_details.special_diet=registration_form.special_diet.data
+
+        if registration_form.pop_image.data:
+            file =  process_pop_file(registration_form.pop_image.data,current_user.id)
+            usr_reg_details.pop_image = file
+
+        if not val_registration:
+            if registration_form.payment_platform.data == 'AGCC FNB Account' and not usr_reg_details.pop_image:
+                flash("Error! Please Upload your Proop of Payment or else Choose other options", "error")
+                return redirect(url_for("user_registration_form"))
+            else:
+                db.session.commit()
+                flash("Update Successful!", "success")
+
+        return redirect(url_for("registration_success"))
+
+    return render_template('registrations_form_edit.html',usr_reg_details=usr_reg_details,registration_form=registration_form,user=get_user,
+                           event_details=event,val_registration=val_registration)
+
+
 #User Registrations Form
 @app.route("/user_registration_form", methods=["POST", "GET"])
 @login_required
@@ -363,13 +417,6 @@ def user_registration_form():
             file =  process_pop_file(registration_form.pop_image.data,current_user.id)
             registration.pop_image = file
 
-        # if request.args.get("pop_compulsory"):
-        #     print("Found POP COMPULSORY")
-        #     file =  process_pop_file(registration_form.pop_image.data,current_user.id)
-        #     registration.pop_image = file
-        # else:
-        #     print("Not Found POP COMPULSORY")
-
         
         db.session.add(registration)
 
@@ -379,8 +426,8 @@ def user_registration_form():
                 return redirect(url_for("user_registration_form"))
             else:
                 print("Payment Choice: ",registration_form.payment_platform.data)
-                # db.session.commit()
-                # reg_confirmation()
+                db.session.commit()
+                reg_confirmation()
 
             # print("Confirmation Sent Successfully!")
         # else:
@@ -430,6 +477,8 @@ def registration_success():
     registered_user = church_user.query.get(current_user.id)
 
     return render_template('registration-success.html',user=registered_user,reg_info=pop_transactions)
+
+
 
 
 @app.route("/signup", methods=["POST","GET"])
