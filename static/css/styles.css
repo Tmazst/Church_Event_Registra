@@ -54,11 +54,46 @@ a:hover{opacity: 0.81;}
     align-items:center;
     gap:5%;
     font-weight:600;
-    //background-color:var(--main-color);
+    /* background-color:var(--main-color); */
     width:100%;
     font-size:15px;
     margin-top:10px;
     margin-bottom:10px;
+}
+
+.submit-engr{
+    position:absolute;
+    top:0;
+    bottom: 0;
+    left:0;
+    right:0;
+    border:none;
+    background: none;
+}
+
+.submit-engr:hover{
+    cursor: pointer;
+}
+
+.submits-options{
+    /* height: 20px; */
+    padding:5px 10px;
+    /* border: 1px solid rgb(35, 146, 72); */
+    border-radius: 20px;
+    gap:10px;
+    display: flex;
+    align-items: center;
+    position:relative;
+    /* background-color: #0F75BC; */
+}
+
+.submits-options label{
+    font-weight: 500;
+    color:#2f3133;
+}
+
+.submits-options label:hover{
+    cursor:pointer;
 }
 
 .nav ul{
@@ -2110,8 +2145,28 @@ p{
 
 }
 
+.form-control-techx{
+    flex-direction:column;
+}
+
+.form-control-techx div{
+    width:90% !important;
+}
+
 .spacing{
  background-color:;
+}
+
+.engrave-contact{
+    border:1px solid #eee;
+    border-radius:15px;
+    padding:0px;
+    background-color: #c8c9c8;
+    width:60%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .physical_addr{

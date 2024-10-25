@@ -17,6 +17,7 @@ import itsdangerous
 from sqlalchemy.exc import IntegrityError
 from authlib.integrations.flask_client import OAuth
 import json
+# import logging
 
 
 
@@ -55,6 +56,31 @@ if os.path.exists('client.json'):
 
 def allowed_files(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+# # Set up logging configuration
+# logging.basicConfig(level=logging.INFO)
+
+# # Suppress Werkzeug logger
+# werkzeug_logger = logging.getLogger('werkzeug')
+# werkzeug_logger.setLevel(logging.ERROR)
+
+# # Create a logs directory and setup the log file path
+# log_dir = os.path.join(os.path.dirname(__file__), 'logs')
+# if not os.path.exists(log_dir):
+#     os.makedirs(log_dir)
+    
+# # Configure logger for SQLAlchemy
+# sqlalchemy_logger = logging.getLogger('sqlalchemy.engine')
+# sqlalchemy_logger.setLevel(logging.INFO)
+# sqlalchemy_logger.propagate = False
+
+# # File handler for SQL logs (user entries)
+# file_handler = logging.FileHandler(os.path.join(log_dir, 'user_queries.log'))
+# file_handler.setLevel(logging.INFO)
+# file_handler.setFormatter(logging.Formatter('%(asctime)s - %(message)s'))
+# sqlalchemy_logger.addHandler(file_handler)
+
 
 class user_class:
     s = None
@@ -484,6 +510,93 @@ def registration_success():
     return render_template('registration-success.html',user=registered_user,reg_info=pop_transactions)
 
 
+@app.route("/contact_form", methods=["POST", "GET"])
+def contact_form():
+
+    contact_form = Contact_Form()
+    
+    if request.method == 'POST':
+       
+        if contact_form.validate_on_submit():
+            
+            
+            # Get user details through their email
+            
+
+            def send_link():
+                app.config["MAIL_SERVER"] = "smtp.googlemail.com"
+                app.config["MAIL_PORT"] = 587
+                app.config["MAIL_USE_TLS"] = True
+                em = app.config["MAIL_USERNAME"] = creds.get('email') #os.getenv("EMAIL")
+                app.config["MAIL_PASSWORD"] = creds.get('gpass') # os.getenv("PWD")
+
+                mail = Mail(app)
+
+                # token = user_class().get_reset_token(usr_email.id)
+                msg = Message("Inquiry Message", sender="noreply@demo.com", recipients=[em, 'aeceswatini2024@gmail.com'])
+                msg.html = f"""<html>
+<head>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            background-color: #f6f6f6;
+            color: #333;
+            padding: 20px;
+        }}
+        .container {{
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }}
+        h2,h3 {{
+            color: #4CAF50;
+        }}
+        p,li{{font-weight:500;color:#505050 }}
+        .footer {{
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }}
+        span{{ font-weight:600;color:coral}}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img style="" src="https://africec.org/images/webimages/logo/logo.png" />
+        <h4>Name:       {contact_form.name.data}</h4>
+        <h4>Email:      {contact_form.email.data}</h4>
+        <h4>Contact:    {contact_form.contact.data}</h4>
+        <h4>Message:</h4>
+        <p> {contact_form.message.data}</p>
+
+        
+        <p class="footer">If you did not request the above message please ignore it, and your password will remain unchanged.</p>
+    </div>
+</body>
+</html>
+"""
+
+                try:
+                    mail.send(msg)
+                    flash('Email Successful Sent!', 'success')
+                    return "Email Sent"
+                except Exception as e:
+
+                    flash('Ooops, Something went wrong Please Retry!!', 'error')
+                    return "The mail was not sent"
+        
+
+
+            # Send the pwd reset request to the above email
+            send_link()
+
+            return redirect(url_for('home'))
+        elif contact_form.errors:
+            for error in contact_form.errors:
+                flash(f"Error! Please Check the {error} Field", 'error')
+
+    return render_template("issues_contact_form.html", contact_form=contact_form)
 
 
 @app.route("/signup", methods=["POST","GET"])
