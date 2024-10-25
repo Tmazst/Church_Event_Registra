@@ -124,7 +124,7 @@ class pop_transactions(db.Model):
     special_diet = db.Column(db.String(120))#
     payment_platform = db.Column(db.String(120))
     accommodation_bool = db.Column(db.Boolean)#
-    accommodation_add_info = db.Column(db.String(120))#
+    accommodation_add_info = db.Column(db.Boolean)#
     pop_image = db.Column(db.String(120))
 
 

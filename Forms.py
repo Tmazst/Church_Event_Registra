@@ -70,16 +70,16 @@ class RegistrationsForm(FlaskForm):
     pop_image = FileField('Upload Proof of Payment')
     pop_image_comp = FileField('Upload Proof of Payment')
     no_pop = BooleanField('None')
-    payment_platform = SelectField('Payment Platform',
-                                  choices=[("Not Yet Paid", "Not Yet Paid"),("AGCC FNB Account", "AGCC FNB Account"),("My Regional Bank", "My Regional Bank")])
+    payment_platform = SelectField('Where did you directly send your payment?',
+                                  choices=[("AGCC FNB Account", "AGCC FNB Account"),("My Regional Bank", "My Regional Bank")])
     
     denom_structure = SelectField('Denominational Structure',
                             choices=[("None", "None"),("Board", "Board"),("Women's Committee", "Women's Committee"),("Men's Committee", "Men's Committee"),("Youth Committee", "Youth Committee")
                                      ,("Young Adults' Committee", "Young Adults' Committee"),("Sunday School", "Sunday School")])
-    special_diet_bool = RadioField('Special Diet?',choices=[(0, "No"),(1, "Yes")])
+    special_diet_bool = RadioField('Special Diet?',choices=[(0, "No"),(1, "Yes")], validators=[Optional()])
     special_diet = StringField('Please Specify')
     accommodation_bool = BooleanField('Accommodation Required?')
-    accommodation_add_info = RadioField('Accommodation (Will you be staying at the conference venue?")',choices=[(0, "No"),(1, "Yes")])
+    accommodation_add_info = RadioField('Accommodation (Will you be staying at the conference venue?")',choices=[(0, "No"),(1, "Yes")],default=0)
     submit = SubmitField('Submit')
 
     def update_validators(self, selected_payment):

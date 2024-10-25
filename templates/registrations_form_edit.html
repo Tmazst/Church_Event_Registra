@@ -72,7 +72,7 @@
             {{registration_form.accommodation_add_info.label}}
             <div style="width:70px !important" class="accomo">{{ registration_form.accommodation_add_info(class="form-control",placeholder="Additional Info (Optional)")}}</div>
             {% if usr_reg_details.accommodation_add_info == 1 %}
-            <label style="color:brown;font-size: 12px;" class="labels">Current Value:Accommodation Required</label>
+            <label style="color:brown;font-size: 12px;" class="labels">Current Value: Accommodation Required</label>
             {% else %}<label style="color:brown;font-size: 12px;" class="labels">Current Value: Accommodation Not Required</label>{% endif %}
             {% if registration_form.accommodation_add_info.errors %}
                 {% for error in registration_form.accommodation_add_info.errors %}<span class="span-error" >*{{error}}</span>
@@ -90,7 +90,7 @@
                 {% endfor %}
             {% endif %}
         </div>
-        {% if usr_reg_details.special_diet  == 1  %}
+        {% if usr_reg_details.special_diet   %}
             <label style="color:brown;font-size: 12px;font-weight:600" class="labels">Current Value: {{usr_reg_details.special_diet}}</label>
             {% else %}
             <label style="color:brown;font-size: 12px;font-weight:600" class="labels">Current Value: No Special Diet</label>

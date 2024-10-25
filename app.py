@@ -354,30 +354,32 @@ def user_registration_form_edit():
         return redirect(url_for("finish_signup"))
 
     if registration_form.validate_on_submit():
+        print("Submit")
 
         usr_reg_details.payment_platform=registration_form.payment_platform.data
         usr_reg_details.denom_structure=registration_form.denom_structure.data
         # usr_reg_details.accomodation = registration_form.accomodation.data
         usr_reg_details.accommodation_bool=registration_form.accommodation_bool.data
-        usr_reg_details.accommodation_add_info=registration_form.accommodation_add_info.data
-        usr_reg_details.special_diet=registration_form.special_diet.data
+        usr_reg_details.accommodation_add_info=bool(registration_form.accommodation_add_info.data)
+        if registration_form.special_diet_bool:
+            usr_reg_details.special_diet=registration_form.special_diet.data
 
         if registration_form.pop_image.data:
             file =  process_pop_file(registration_form.pop_image.data,current_user.id)
             usr_reg_details.pop_image = file
 
-        if not val_registration:
-            if registration_form.payment_platform.data == 'AGCC FNB Account' and not usr_reg_details.pop_image:
-                flash("Error! Please Upload your Proop of Payment or else Choose other options", "error")
-                return redirect(url_for("user_registration_form"))
-            else:
-                db.session.commit()
-                flash("Update Successful!", "success")
+        if registration_form.payment_platform.data == 'AGCC FNB Account' and not usr_reg_details.pop_image:
+            flash("Error! Please Upload your Proop of Payment or else Choose other options", "error")
+            return redirect(url_for("user_registration_form_edit"))
+        else:
+            db.session.commit()
+            flash("Update Successful!", "success")
+            print("Details: ",usr_reg_details.special_diet)
+
     elif registration_form.errors:
         for error in registration_form.errors:
             print("Update Error: ",error)
 
-        return redirect(url_for("registration_success"))
 
     return render_template('registrations_form_edit.html',usr_reg_details=usr_reg_details,registration_form=registration_form,user=get_user,
                            event_details=event,val_registration=val_registration)
