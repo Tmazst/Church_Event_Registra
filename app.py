@@ -344,10 +344,10 @@ def user_registration_form_edit():
     if event:
         val_registration = pop_transactions.query.filter_by(usr_id=current_user.id).first()
     
-    if val_registration:
-        flash(f"You are already registered.", "success")
-        # reg_confirmation()
-        return redirect(url_for("already_registered"))# redirect(url_for("home"))
+    # if val_registration:
+    #     flash(f"You are already registered.", "success")
+    #     # reg_confirmation()
+    #     return redirect(url_for("already_registered"))# redirect(url_for("home"))
     
     if not current_user.church_local and not current_user.church_circuit:
         flash("Please Finish Up Your Account Setup, First. You're Almost Done!","success")
@@ -396,10 +396,10 @@ def user_registration_form():
     if event:
         val_registration = pop_transactions.query.filter_by(usr_id=current_user.id).first()
     
-    # if val_registration:
-    #     flash(f"You are already registered.", "success")
-    #     # reg_confirmation()
-    #     return redirect(url_for("already_registered"))# redirect(url_for("home"))
+    if val_registration:
+        flash(f"You are already registered.", "success")
+        # reg_confirmation()
+        return redirect(url_for("already_registered"))# redirect(url_for("home"))
     
     if not current_user.church_local and not current_user.church_circuit:
         flash("Please Finish Up Your Account Setup, First. You're Almost Done!","success")
