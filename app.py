@@ -596,7 +596,7 @@ def contact_form():
             for error in contact_form.errors:
                 flash(f"Error! Please Check the {error} Field", 'error')
 
-    return render_template("issues_contact_form.html", contact_form=contact_form)
+    return render_template("issues_contact_form.html", contact_form=contact_form,user=User)
 
 
 @app.route("/signup", methods=["POST","GET"])

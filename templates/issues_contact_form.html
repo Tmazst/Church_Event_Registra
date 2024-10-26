@@ -19,16 +19,30 @@
         <form class="form-control-techx flex-just-align " style="width:100%;flex-direction:column" action = "/contact_form" method="post" >
             {{contact_form.hidden_tag()}}
             <!-- <div  class="hidden contact-nester" style="display: flex;width:90%;flex-direction:column"> -->
+                {% if current_user.is_authenticated %}
+                    {% set usr = user.query.get(current_user.id) %}
+                {% endif %}
+                    {% if current_user.is_authenticated %}
+                        {{contact_form.name(class="contact-form-control",placeholder="Name", id='name',value=usr.name)}}
+                    {% else %}
+                        {{contact_form.name(class="contact-form-control",placeholder="Name", id='name')}}
+                    {% endif %}
+
+                    {% if current_user.is_authenticated %}
+                        {{contact_form.email(class="contact-form-control",placeholder="Email Address",id="emailInput",value=usr.email)}}
+                    {% else %}
+                        {{contact_form.email(class="contact-form-control",placeholder="Email Address",id="emailInput")}}
+                    {% endif %}
                 
-                    {{contact_form.name(class="contact-form-control",placeholder="Name", id='name')}}
-                
-                
-                    {{contact_form.email(class="contact-form-control",placeholder="Email Address",id="emailInput")}}
+                    
                 
             <!-- </div> -->
             <!-- <div  class="hidden" style="display: flex;width:90%;"> -->
-                
-                    {{contact_form.subject(class="contact-form-control",placeholder="Phone", id="phoneNo")}}
+                    {% if current_user.is_authenticated and usr.contact %}
+                        {{contact_form.contact(class="contact-form-control",placeholder="Phone", id="phoneNo",value=usr.contact)}}
+                    {% else %}
+                        {{contact_form.contact(class="contact-form-control",placeholder="Phone",value=usr.contact)}}
+                    {% endif %}
                 
             <!-- </div> -->
             <!-- <div class="item hidden"  style="width:80% !important;"> -->

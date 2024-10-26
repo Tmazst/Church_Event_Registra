@@ -103,7 +103,7 @@ class Contact_Form(FlaskForm):
 
     name = StringField('name')
     email = StringField('email', validators=[DataRequired(),Email()])
-    contact = StringField('contact')
+    contact = TelField('contact')
     subject = StringField("subject")
     message = TextAreaField("Message",validators=[Length(min=8, max=255)])
     submit = SubmitField("Send")
