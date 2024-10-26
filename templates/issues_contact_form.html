@@ -41,7 +41,7 @@
                     {% if current_user.is_authenticated and usr.contact %}
                         {{contact_form.contact(class="contact-form-control",placeholder="Phone", id="phoneNo",value=usr.contact)}}
                     {% else %}
-                        {{contact_form.contact(class="contact-form-control",placeholder="Phone",value=usr.contact)}}
+                        {{contact_form.contact(class="contact-form-control",placeholder="Phone")}}
                     {% endif %}
                 
             <!-- </div> -->
