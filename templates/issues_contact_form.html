@@ -1,0 +1,78 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div style="margin:40px auto; padding:10px; background-color:;width:600px" class="engrave-contact">
+
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for  category, message in messages %}
+                    <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div style="border-radius:15px;padding:25px;width:100%;border:1px solid #f3f2f2"  class="">
+        <h3 style="text-align: left;padding-left:45px">Inquiry Form</h3><br>
+        <form class="form-control-techx flex-just-align " style="width:100%;flex-direction:column" action = "/contact_form" method="post" >
+            {{contact_form.hidden_tag()}}
+            <!-- <div  class="hidden contact-nester" style="display: flex;width:90%;flex-direction:column"> -->
+                
+                    {{contact_form.name(class="contact-form-control",placeholder="Name", id='name')}}
+                
+                
+                    {{contact_form.email(class="contact-form-control",placeholder="Email Address",id="emailInput")}}
+                
+            <!-- </div> -->
+            <!-- <div  class="hidden" style="display: flex;width:90%;"> -->
+                
+                    {{contact_form.subject(class="contact-form-control",placeholder="Phone", id="phoneNo")}}
+                
+            <!-- </div> -->
+            <!-- <div class="item hidden"  style="width:80% !important;"> -->
+                {{contact_form.message(class="contact-form-control  text-area",placeholder="Message",id="msg")}}
+            <!-- </div> -->
+            
+            <div class="" style="width:90%;flex-direction: row;gap:13px;">
+                <a href="#" id="whatsappEqry" onclick="sendWhatsappEngrave()">
+                    <div class="submits-options">
+                        <img style="height:30px;width:30px" src="static/icons/whatsapp-icon.png" />
+                        <label style="color:rgb(10, 189, 34)" for="whatsapp">Send Whatsapp</label>
+                        <!-- <input type="submit" value="whatsapp" /> -->
+                    </div>
+                </a>
+                <div style="width:150px" class="submits-options">
+                    <!-- <a href="/contact"> -->
+                        <input id="email-engr" class="submit-engr" type="submit" value="" >
+                            <img style="height:35px;width:35px" src="static/icons/email_icon.png" />
+                            <label for="">Send eMail</label>
+                        </input>
+                    <!-- </a> -->
+                    <!-- <input type="submit" value="whatsapp" /> -->
+                </div> 
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function sendWhatsappEngrave() {
+        // Get the email input value
+        var email = document.getElementById('emailInput').value;
+        var number = document.getElementById('phoneNo').value;
+        var msg = document.getElementById('msg').value;
+        var name = document.getElementById('name').value;
+        
+        // Encode the email for the URL
+        var encodedEmail = encodeURIComponent(email);
+        
+        // Construct the WhatsApp link
+        var whatsappLink = "https://wa.me/+26876045087?text=Hi I am, "+ name + ". \n\n"  + "My contacts:\n" + number +  msg + "\n";
+
+        // Redirect to the constructed WhatsApp link
+        window.location.href = whatsappLink;
+    }
+</script>
+
+{% endblock %}
