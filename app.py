@@ -27,8 +27,8 @@ import json
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "sdsdjfe832j2rj_32j"
 # app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///techxicons_db.db"
-# app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:tmazst41@localhost/aec_registration_db"
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://techtlnf_tmaz:!Tmazst41#@localhost/techtlnf_aec_registration_db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:tmazst41@localhost/aec_registration_db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://techtlnf_tmaz:!Tmazst41#@localhost/techtlnf_aec_registration_db"
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle':280}
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -353,7 +353,7 @@ def reg_confirmation():
 
 
 
-#User Registrations Form
+#User Registrations Form Edit
 @app.route("/user_registration_form_edit", methods=["POST", "GET"])
 @login_required
 def user_registration_form_edit():
@@ -399,8 +399,9 @@ def user_registration_form_edit():
             return redirect(url_for("user_registration_form_edit"))
         else:
             db.session.commit()
-            flash("Update Successful!", "success")
-            print("Details: ",usr_reg_details.special_diet)
+            flash("Please, Confirm Your Update", "success")
+            # return redirect(url_for("registration_form_edit_confirm",registration_form=registration_form))
+            # print("Details: ",usr_reg_details.special_diet)
 
     elif registration_form.errors:
         for error in registration_form.errors:
@@ -410,6 +411,25 @@ def user_registration_form_edit():
     return render_template('registrations_form_edit.html',usr_reg_details=usr_reg_details,registration_form=registration_form,user=get_user,
                            event_details=event,val_registration=val_registration)
 
+
+#User Registrations Form Edit Confirm
+@app.route("/registration_form_edit_confirm", methods=["POST", "GET"])
+@login_required
+def registration_form_edit_confirm():
+    val_registration = None
+    registration_form = RegistrationsForm()
+    get_user = User.query.get(current_user.id)
+    usr_reg_details = pop_transactions.query.filter_by(usr_id=current_user.id).first()
+    event = open_event.query.filter_by(event_closed=False).first()
+
+    if registration_form.validate_on_submit():
+            db.session.commit()
+            flash("Update Successful!", "success")
+            print("Details: ",usr_reg_details.special_diet)
+
+
+    return render_template('confirm_form_edit.html',usr_reg_details=usr_reg_details,registration_form=registration_form,user=get_user,
+                           event_details=event,val_registration=val_registration)
 
 #User Registrations Form
 @app.route("/user_registration_form", methods=["POST", "GET"])
@@ -440,7 +460,7 @@ def user_registration_form():
         registration = pop_transactions(
             usr_id=current_user.id,transaction_id=secrets.token_hex(16),transaction_token=secrets.token_hex(16)+str(current_user.id),
             timestamp=datetime.now(),payment_platform=registration_form.payment_platform.data,denom_structure=registration_form.denom_structure.data,#accomodation = registration_form.accomodation.data
-            accommodation_bool=registration_form.accommodation_bool.data,accommodation_add_info=registration_form.accommodation_add_info.data,
+            accommodation_bool=registration_form.accommodation_bool.data,accommodation_add_info=bool(registration_form.accommodation_add_info.data),
             special_diet=registration_form.special_diet.data
             )
         

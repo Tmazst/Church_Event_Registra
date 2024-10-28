@@ -97,17 +97,88 @@
         {% endif %}<br>
 
         <div style="" class="group">
-                <div>{{ registration_form.submit(class="btns") }}</div><br>
-                <!--<input class="btns" type="submit" value="Create Account" />-->
-                <!-- <div><a class="slinks-li" href="/login">Login</a></div> -->
+            <div style="width:80px" onclick="confirmationPopup('{{user.id}}')" class="btns">Update</div>
+            <!--<input class="btns" type="submit" value="Create Account" />-->
+            <!-- <div><a class="slinks-li" href="/login">Login</a></div> -->
         </div>
+
         <div style="" class="group">
             <!-- <div><a class="slinks-li" href="/register">Forgot Password?</a></div> -->
         </div>
 
+        <!-- Test Pop-up on Confirm -->
+        <div id="popup_cont" class="pop-cont">
+            <div style="height:;width:300px;top:100px" id="popup" class="pop-up">
+                
+                <div id="payment_platform" class="group">
+                    {{ registration_form.payment_platform.label }}<br>
+                    {{ registration_form.payment_platform.data }}
+                    {% if registration_form.payment_platform.data %}
+                        {% if not registration_form.payment_platform.data == usr_reg_details.payment_platform %}
+                            <label style="color:brown;font-size: 12px;" class="labels">{{registration_form.payment_platform.data}}</label><!---New Value-->
+                        {% else %}
+                            {{usr_reg_details.payment_platform}}<!---currnet value-->
+                        {% endif %}
+                    {% else %}
+                        {{usr_reg_details.payment_platform}}<!---None or currnet value-->
+                    {% endif %}
+                </div>
+
+                <div id="" class="group">
+                    {{ registration_form.denom_structure.label }}<br>
+                    {% if registration_form.denom_structure.data %}
+                        {% if not registration_form.denom_structure.data == usr_reg_details.denom_structure %}
+                            <label style="color:brown;font-size: 12px;" class="labels">{{registration_form.denom_structure.data}}</label><!---New Value-->
+                        {% else %}
+                            {{usr_reg_details.denom_structure}}<!---currnet value-->
+                        {% endif %}
+                    {% else %}
+                        {{usr_reg_details.denom_structure}}<!---None or currnet value-->
+                    {% endif %}
+                </div>
+
+                <div id="" class="group">
+                    {{ registration_form.accommodation_add_info.label }}<br>
+                    {% if registration_form.accommodation_add_info.data %}
+                        {% if not registration_form.accommodation_add_info.data == usr_reg_details.accommodation_add_info %}
+                            {% if registration_form.accommodation_add_info.data == 1 %}
+                            <label style="color:brown;font-size: 12px;" class="labels">Accommodation Required</label>
+                            {% else %}<label style="color:brown;font-size: 12px;" class="labels">Accommodation Not Required</label>{% endif %}<!---New Value-->
+                        {% else %}
+                            {{usr_reg_details.accommodation_add_info}}<!---currnet value-->
+                        {% endif %}
+                    {% else %}
+                        {{usr_reg_details.accommodation_add_info}}<!---None or currnet value-->
+                    {% endif %}
+                </div>
+
+                <div id="" class="group">
+                    {{ registration_form.special_diet.label }}<br>
+                    {% if registration_form.special_diet.data %}
+                        {% if not registration_form.special_diet.data == usr_reg_details.special_diet %}
+                            <label style="color:brown;font-size: 12px;" class="labels">Current Value: {{registration_form.special_diet.data}}</label><!---New Value-->
+                        {% else %}
+                            {{usr_reg_details.special_diet}}<!---currnet value-->
+                        {% endif %}
+                    {% else %}
+                        {{usr_reg_details.special_diet}}<!---None or currnet value-->
+                    {% endif %}
+                </div>
+
+                <div style="" class="group">
+                        <div>{{ registration_form.submit(class="btns") }}</div><br>
+                        <!--<input class="btns" type="submit" value="Create Account" />-->
+                        <!-- <div><a class="slinks-li" href="/login">Login</a></div> -->
+                </div>
+                <div style="" class="group">
+                    <!-- <div><a class="slinks-li" href="/register">Forgot Password?</a></div> -->
+                </div>
+            </div>
+        </div>
     </form>
   </div>
 </div>
+
 {% else %}
 <h1 style="text-align:center">Sorry, There are No Upcoming Events Open at the Moment!</h1>
 <h1 style="text-align:center">Check Again Later</h1>
@@ -115,6 +186,20 @@
 {% endif %}
 
 <script>
+
+    function confirmationPopup(id){
+            let popup = document.querySelector("#popup_cont");
+            let popCont = document.querySelector('#popup');
+            popCont.classList.toggle("show-popup");
+            popup.classList.toggle("show-popup");
+        };
+
+    function closePopup(id){
+            let popup = document.querySelector("#popup_cont");
+            let popCont = document.querySelector('#popup');
+            popup.classList.remove("show-popup");
+            popCont.classList.remove("show-popup");
+        };
   
 </script>
 {% endblock %}
