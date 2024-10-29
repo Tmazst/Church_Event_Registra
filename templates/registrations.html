@@ -92,6 +92,9 @@
                     {% set file_ext = pop_img.split('.')[-1] | lower %}
                     <!---IMG VIEWER-->
                     {% if file_ext  in ['jpg','jpeg','png', 'gif'] %}
+                        {% if pop_img %}
+                            <h4>pop_img</h4>
+                        {% endif %}
                         <img width="100%" src="{{ url_for('static', filename='uploads/pop_img') }}" />
                     <!---PDF VIEWER-->
                     {% elif file_ext  == 'pdf' %}
