@@ -95,10 +95,10 @@
                         {% if pop_img %}
                             <h4>{{pop_img}}</h4>
                         {% endif %}
-                        <img width="100%" src="{{ url_for('static', filename='uploads/pop_img') }}" />
+                        <img  src="static/uploads/{{pop_img}}" />
                     <!---PDF VIEWER-->
                     {% elif file_ext  == 'pdf' %}
-                    <h1>{{pop_img}}</h1>
+                    <h4>{{pop_img}}</h4>
                         <embed src="static/uploads/{{pop_img}}" type="application/pdf" width="100%" height="1000px" />
                     <!---DOCX VIEWER-->
                     {% elif file_ext  == 'docx' %}
