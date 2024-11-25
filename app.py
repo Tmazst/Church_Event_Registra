@@ -1094,7 +1094,6 @@ def google_signin():
         try:
             db.session.add(user1)
             db.session.commit()
-            # flash(f"Account Successfully Created for {usr_name}", "success")
 
             #Log in user
             usr_obj = User.query.filter_by(email=usr_email).first()
