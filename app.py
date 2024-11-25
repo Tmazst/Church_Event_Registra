@@ -81,6 +81,12 @@ def allowed_files(filename):
 # file_handler.setFormatter(logging.Formatter('%(asctime)s - %(message)s'))
 # sqlalchemy_logger.addHandler(file_handler)
 
+from authlib.integrations.base_client.errors import MismatchingStateError
+
+@app.errorhandler(MismatchingStateError)
+def handle_mismatching_state_error(error):
+    return "Authentication failed due to security issues, please try again.", 400
+
 
 class user_class:
     s = None
@@ -640,7 +646,7 @@ def sign_up():
                 Register().validate_email(register.email.data)
                 db.session.add(user1)
                 db.session.commit()
-                flash(f"Account Successfully Created for {register.name.data}", "success")
+                # flash(f"Account Successfully Created for {register.name.data}", "success")
                 flash(f"Please Login & Verify your Account", "success")
                 return redirect(url_for('login'))
                 # return jsonify({"message": "User registered successfully"}), 201
@@ -688,7 +694,7 @@ def admin_signup():
             try:
                 db.session.add(user1)
                 db.session.commit()
-                flash(f"Account Successfully Created for {register.name.data}", "success")
+                # flash(f"Account Successfully Created for {register.name.data}", "success")
                 return redirect(url_for('login'))
             except: # IntegrityError:
                 flash(f"Something went wrong, check for errors", "success")
@@ -1088,7 +1094,7 @@ def google_signin():
         try:
             db.session.add(user1)
             db.session.commit()
-            flash(f"Account Successfully Created for {usr_name}", "success")
+            # flash(f"Account Successfully Created for {usr_name}", "success")
 
             #Log in user
             usr_obj = User.query.filter_by(email=usr_email).first()
@@ -1096,7 +1102,7 @@ def google_signin():
 
             if not current_user.church_local and not current_user.church_circuit:
                 print("Finish Setup")
-                flash(f"Welcome! {usr_obj.name.title()}, Please Finish Part II of your Sign-up Process", "success")
+                # flash(f"Welcome! {usr_obj.name.title()}, Please Finish Part II of your Sign-up Process", "success")
                 return redirect(url_for('finish_signup'))
         
         except IntegrityError:
