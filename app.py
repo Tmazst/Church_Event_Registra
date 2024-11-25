@@ -1084,7 +1084,7 @@ def google_signin():
     #Sign Up
     if not User.query.filter_by(email=usr_email).first():
 
-        print("Email Not Found!, We will register it")
+        print("Email Not Found!, We will register")
 
         # context
         hashd_pwd = encry_pw.generate_password_hash(usr_athash).decode('utf-8')
