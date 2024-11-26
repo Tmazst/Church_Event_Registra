@@ -1642,8 +1642,8 @@ to{
     margin:0 auto !important;
     width:85% !important;
     text-align: center;
-    font-size: 13px;
-    font-weight: 600px;
+    font-size: 13px !important;
+    font-weight: 600px !important;
 }
 
 .alert-error{

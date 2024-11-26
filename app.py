@@ -85,7 +85,7 @@ from authlib.integrations.base_client.errors import MismatchingStateError
 
 @app.errorhandler(MismatchingStateError)
 def handle_mismatching_state_error(error):
-    return "Authentication failed due to security issues, please try again.", 400
+    return "Authentication is Terminated due to Security Measures, Please Go Back To Login Again.", 400
 
 
 class user_class:
