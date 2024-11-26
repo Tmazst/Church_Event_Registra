@@ -1651,6 +1651,10 @@ to{
     /* text-decoration: dotted; */
 }
 
+.flash-messages{
+    margin:5px 0;
+}
+
 .alert-success{
     color:rgb(56, 91, 243);
     background-color: rgb(236, 235, 235);

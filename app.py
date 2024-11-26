@@ -986,7 +986,7 @@ def verified(token):
                 login_user(usr)
                 if not current_user.church_local and not current_user.church_circuit:
                     print("Finish Setup")
-                    flash(f"Welcome! {qry_usr.name.title()}, Please Finish your Sign-up process", "success")
+                    flash(f"Please Finish your Sign-up process", "success")
                     return redirect(url_for('finish_signup'))
             # return redirect(url_for('account'))
     except Exception as e:
@@ -1120,7 +1120,7 @@ def google_signin():
 
         if not current_user.church_local and not current_user.church_circuit:
             print("Finish Setup")
-            flash(f"Welcome! {usr_obj.name.title()}, Please Finish your Sign-up process", "success")
+            flash(f"Please Finish your Sign-up process", "success")
             return redirect(url_for('finish_signup'))
     
         return redirect(req_page) if req_page else redirect(url_for('home'))
