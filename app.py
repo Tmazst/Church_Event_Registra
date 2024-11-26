@@ -1152,7 +1152,7 @@ def login():
 
                     if not current_user.church_local and not current_user.church_circuit:
                         print("Finish Setup")
-                        flash(f"Welcome! {user_login.name.title()}, Please Finish Up your Sign-up process", "success")
+                        flash(f"Please Finish Up your Sign-up process", "success")
                         return redirect(url_for('finish_signup'))
                 
                     return redirect(req_page) if req_page else redirect(url_for('home'))
