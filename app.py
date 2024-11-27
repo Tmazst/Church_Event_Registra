@@ -1129,7 +1129,7 @@ def google_signin():
             login_user(usr_obj)
 
             if not current_user.church_local and not current_user.church_circuit:
-                print("Finish Setup")
+
                 # flash(f"Welcome! {usr_obj.name.title()}, Please Finish Part II of your Sign-up Process", "success")
                 return redirect(url_for('finish_signup'))
         
