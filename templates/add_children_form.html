@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .form-fields{
+        display:flex;
+        flex-direction:column;
+    }
+    section{ background-image:url(static/images/bg_service.png) }
+</style>
+<div class="flash-messages" id="">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+          {% for  category, message in messages %}
+              <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+          {% endfor %}
+      {% endif %}
+  {% endwith %}
+</div>
+<br><br>
+
+<div class="container">
+   
+  <div class="login-cont flex-general">
+    
+      <form style="background-color:;flex-direction:column;z-index:1000;" class="" _lpchecked="1" action="" method="post">
+        <div class="flex-general" style="flex-direction: column;align-items: flex-start;">
+            <h1  style="align-self: flex-start !important;text-align: left;"><br><span style="font-size:medium;color:rgb(102, 102, 102);">Register Your Children</span></h1>
+            <!-- <a href="{{url_for('google_login')}}"><div class="flex-general" ><h4>Continue with </h4>
+            <img class="ggl-img" style="height: 35px;" src="static/icons/google.jpg" /> </div></a> -->
+        </div>
+            {{add_child_form.hidden_tag()}}
+            <div class="group">
+                {{ add_child_form.child_name_1(class="form-control",placeholder="Full Name") }}<br>
+                {% if add_child_form.child_name_1.errors %}
+                  {% for error in add_child_form.child_name_1.errors %}<span class="span-error" >*{{error}}</span>{% endfor %}
+               {% endif %}
+          </div>
+          <div id="group-children" class="group">
+
+          </div>
+
+          <div onclick="addChildField()" style="justify-content: flex-start;width:max-content" class="group flex-general btns">
+            <div >Add Child</div>
+            <img style="height:30px" src="static/icons/add-icon.png" />
+          </div>
+
+          
+          <div style="" class="group">
+            <div>{{ add_child_form.submit(class="btns") }}</div><br>
+            <!--<input class="btns" type="submit" value="Create Account" />-->
+            <!-- <div><a class="slinks-li" href="/login">Login</a></div> -->
+        </div>
+
+      </form>
+  </div>
+</div>
+
+<script>
+    counter = 1;
+    function addChildField(){
+        counter++;
+        var inputField = document.createElement('input');
+        inputField.type = 'text';
+        inputField.classList.add('form-control');
+        inputField.placeholder = 'another child';
+        inputField.name = 'child-'+ counter;
+
+        document.getElementById('group-children').appendChild(inputField);
+    }
+</script>
+{% endblock %}

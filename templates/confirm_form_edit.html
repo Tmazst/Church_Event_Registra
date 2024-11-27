@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .form-fields{
+        display:flex;
+        flex-direction:column;
+    }
+    section{ background-image:url(static/images/bg_service.png) }
+</style>
+<div class="flash-messages" id="">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for  category, message in messages %}
+                <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+<br><br><br>
+<div class="user-info">
+    <div style="" class="img-cont">
+        <div width="90%"><img class="prf-image" src="static/images/{{user.image}}" alt=""/></div>
+    </div>
+    <h4 style="margin-bottom: 0;text-align: left;">{{user.name}}</h4>
+    <div class="icons-cont"><img class="icons" src='static/icons/email-icon.png' /><small class="">{{user.email}}</small></div>
+    <div class="icons-cont"><img class="icons" src='static/icons/church-icon.png' />{% if user.church_local %}<small class="">{{user.church_local}}, {{user.church_circuit}}
+         Circuit, {{user.church_region}}</small></div>
+{% else %}<a href="/account">{{user.church_local}} Finish Sign-up</a>{% endif %}
+{% if user.timestamp %}<small>Joined: {{user.timestamp.strftime("%d %b %y")}}</small>{% endif %}
+</div><br>
+
+{% if event_details %}
+<div style="height:200hv !important;align-items:flex-start;" class="container">
+
+  <div style="" class="login-cont flex-general">
+
+    <div style="background-color:;flex-direction:column;z-index:1000;" class="">
+        <h1 style="text-align: left;">Services<br> Registration <br> Form,<br><span style="font-size:15px;color:rgb(102, 102, 102)">{{event_details.event_title}},<br> {{event_details.start_date}} - 
+            {{event_details.end_date}},<br>
+            @{{event_details.event_venue}}</span></h1>
+
+
+        <div id="payment_platform" class="group">
+            {{ registration_form.payment_platform.label }}<br>
+            {% if registration_form.payment_platform.data %}
+                {% if not registration_form.payment_platform.data == usr_reg_details.payment_platform %}
+                    <label style="color:brown;font-size: 12px;" class="labels">Current Value: {{registration_form.payment_platform.data}}</label><!---New Value-->
+                {% else %}
+                    {{usr_reg_details.payment_platform}}<!---currnet value-->
+                {% endif %}
+            {% else %}
+                {{usr_reg_details.payment_platform}}<!---None or currnet value-->
+            {% endif %}
+        </div>
+
+        <div id="" class="group">
+            {{ registration_form.denom_structure.label }}<br>
+            {% if registration_form.denom_structure.data %}
+                {% if not registration_form.denom_structure.data == usr_reg_details.denom_structure %}
+                    <label style="color:brown;font-size: 12px;" class="labels">Current Value: {{registration_form.denom_structure.data}}</label><!---New Value-->
+                {% else %}
+                    {{usr_reg_details.denom_structure}}<!---currnet value-->
+                {% endif %}
+            {% else %}
+                {{usr_reg_details.denom_structure}}<!---None or currnet value-->
+            {% endif %}
+        </div>
+
+        <div id="" class="group">
+            {{ registration_form.accommodation_add_info.label }}<br>
+            {% if registration_form.accommodation_add_info.data %}
+                {% if not registration_form.accommodation_add_info.data == usr_reg_details.accommodation_add_info %}
+                    {% if registration_form.accommodation_add_info.data == 1 %}
+                    <label style="color:brown;font-size: 12px;" class="labels">Accommodation Required</label>
+                    {% else %}<label style="color:brown;font-size: 12px;" class="labels">Accommodation Not Required</label>{% endif %}<!---New Value-->
+                {% else %}
+                    {{usr_reg_details.accommodation_add_info}}<!---currnet value-->
+                {% endif %}
+            {% else %}
+                {{usr_reg_details.accommodation_add_info}}<!---None or currnet value-->
+            {% endif %}
+        </div>
+
+        <div id="" class="group">
+            {{ registration_form.special_diet.label }}<br>
+            {% if registration_form.special_diet.data %}
+                {% if not registration_form.special_diet.data == usr_reg_details.special_diet %}
+                    <label style="color:brown;font-size: 12px;" class="labels">Current Value: {{registration_form.special_diet.data}}</label><!---New Value-->
+                {% else %}
+                    {{usr_reg_details.special_diet}}<!---currnet value-->
+                {% endif %}
+            {% else %}
+                {{usr_reg_details.special_diet}}<!---None or currnet value-->
+            {% endif %}
+        </div>
+
+
+        <div style="" class="group">
+                <div>{{ registration_form.submit(class="btns") }}</div><br>
+                <!--<input class="btns" type="submit" value="Create Account" />-->
+                <!-- <div><a class="slinks-li" href="/login">Login</a></div> -->
+        </div>
+        <div style="" class="group">
+            <!-- <div><a class="slinks-li" href="/register">Forgot Password?</a></div> -->
+        </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Test Pop-up on Confirm -->
+
+
+
+
+
+
+{% else %}
+<h1 style="text-align:center">Sorry, There are No Upcoming Events Open at the Moment!</h1>
+<h1 style="text-align:center">Check Again Later</h1>
+<br>
+{% endif %}
+
+<script>
+  
+</script>
+{% endblock %}
