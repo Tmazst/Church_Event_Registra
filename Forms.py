@@ -92,6 +92,17 @@ class RegistrationsForm(FlaskForm):
             print("POP Validated ESlse: ",selected_payment)
             self.pop_image_comp.validators = []
 
+class AddChildrenForm(FlaskForm):
+    child_name_1 = StringField('Child Name')
+    child_name_2 = StringField('Child Name')
+    child_name_3 = StringField('Child Name')
+    child_name_4 = StringField('Child Name')
+    child_name_5 = StringField('Child Name')
+    child_name_6 = StringField('Child Name')
+
+    submit = SubmitField('Submit')
+
+    
 
 class Login(FlaskForm):
     email = StringField('email', validators=[DataRequired(),Email()])

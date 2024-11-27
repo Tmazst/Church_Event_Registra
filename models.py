@@ -126,7 +126,16 @@ class pop_transactions(db.Model):
     accommodation_bool = db.Column(db.Boolean)#
     accommodation_add_info = db.Column(db.Boolean)#
     pop_image = db.Column(db.String(120))
+    children_id = relationship("children", backref='pop_transactions', lazy=True)
 
+
+class children(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120))
+    parent_id = db.Column(db.Integer, ForeignKey('pop_transactions.usr_id'))
+    age_group = db.Column(db.String(120))
+    denom_structure = db.Column(db.String(120))
+    timestamp = db.Column(db.DateTime, nullable=False)
 
 
 

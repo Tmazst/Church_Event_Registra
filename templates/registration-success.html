@@ -34,9 +34,11 @@
                 <h4 style="margin-bottom: 0;color:coral;text-align: left;">Registration Successful!</h4><br>
                 <div>{{user.name}}</div>
                 <div class="icons-cont"><img class="icons" src='static/icons/email-icon.png' /><small class="">{{user.email}}</small></div>
+                
                 <div class="icons-cont"><img class="icons" src='static/icons/church-icon.png' /><small class="">{{user.church_local}},{{user.church_circuit}},{{user.church_region}}</small></div>
                 <small class="">Token:</small>
                 <small class="">{{reg_info.query.filter_by(usr_id=user.id).first().transaction_token}}</small><br><br><br>
+                <a href="{{url_for('add_children_form')}}"><div style="font-size:13px;width:max-content;margin:5px auto" class="btns">Add Child</div></a>
                 <small style="color:coral;font-weight:600" class="">Please Note: Full Details of Registration are sent to your registered email</small><br>
             </div>
         </div>

@@ -418,6 +418,29 @@ def user_registration_form_edit():
                            event_details=event,val_registration=val_registration)
 
 
+@app.route("/add_children_form", methods=["POST", "GET"])
+@login_required
+def add_children_form():
+
+    add_child_form = AddChildrenForm()
+    # sq_num=["child_name_2","child_name_3","child_name_4","child_name_5","child_name_6","child_name_7"]
+    
+    if request.method == "POST":
+        if add_child_form.validate_on_submit():
+            child = children(name=add_child_form.child_name_1.data,parent_id=current_user.id,denom_structure="Sunday School",age_group="Sunday School",timestamp=datetime.now())
+            db.session.add(child)
+            # db.session.commit()
+            #Processing many fields
+            for key in list(request.form.keys()):
+                if key.startswith('child-'): 
+                    child = children(name=request.form.get(key),parent_id=current_user.id,denom_structure="Sunday School",age_group="Sunday School")
+                    db.session.add(child)
+
+        db.session.commit()
+        flash("Children Registered Successfully!")
+
+    return render_template('add_children_form.html', add_child_form=add_child_form)
+
 #User Registrations Form Edit Confirm
 @app.route("/registration_form_edit_confirm", methods=["POST", "GET"])
 @login_required
@@ -502,8 +525,12 @@ def user_registration_form():
 def already_registered():
 
     registered_user = church_user.query.get(current_user.id)
+    _children = children.query.filter_by(parent_id=current_user.id).all()
+    print("Debug Children: ", _children)
+    for child in _children:
+        print("Debug Children: ", child)
 
-    return render_template('already-registered.html',user=registered_user,reg_info=pop_transactions)
+    return render_template('already-registered.html',user=registered_user,reg_info=pop_transactions,children=_children)
 
 
 # User Registrations
@@ -512,9 +539,10 @@ def already_registered():
 def registered_users():
 
     registered_users =pop_transactions.query.all()
+    registered_children = children.query.all()
     # registered_no = pop_transactions.query.all()
 
-    return render_template('registered_users.html',users=User,reg_details=registered_users)
+    return render_template('registered_users.html',users=User,reg_details=registered_users,registered_children=registered_children,pop_transactions=pop_transactions)
 
 
 # User Registrations
@@ -532,6 +560,7 @@ def registrations():
 def registration_success():
 
     registered_user = church_user.query.get(current_user.id)
+    
 
     return render_template('registration-success.html',user=registered_user,reg_info=pop_transactions)
 
@@ -981,9 +1010,8 @@ def verified(token):
         usr.verified = True
         db.session.commit()
         if usr.verified:
-            qry_usr = User.query.get(user_id)
+            login_user(usr)
             if not current_user.is_authenticated:
-                login_user(usr)
                 if not current_user.church_local and not current_user.church_circuit:
                     print("Finish Setup")
                     flash(f"Please Finish your Sign-up process", "success")
@@ -991,6 +1019,7 @@ def verified(token):
             # return redirect(url_for('account'))
     except Exception as e:
         flash(f"Something went wrong, Please try again ", "error")
+        return redirect(url_for('home'))
 
     return render_template('verified.html')
 
