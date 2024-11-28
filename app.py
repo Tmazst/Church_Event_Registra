@@ -429,7 +429,6 @@ def add_children_form():
         if add_child_form.validate_on_submit():
             child = children(name=add_child_form.child_name_1.data,parent_id=current_user.id,denom_structure="Sunday School",age_group="Sunday School",timestamp=datetime.now())
             db.session.add(child)
-            # db.session.commit()
             #Processing many fields
             for key in list(request.form.keys()):
                 if key.startswith('child-') and request.form.get(key): 
