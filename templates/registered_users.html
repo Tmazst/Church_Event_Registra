@@ -80,7 +80,7 @@
                 {% set parent_info = users.query.get(child.parent_id)%}
                 {% set parent_pop_trans = pop_transactions.query.filter_by(usr_id=child.parent_id).first() %}
                 {% if child.name %}
-                    <tr><td>{{child.timestamp.strftime("%d %b %y")}}</td><td>{{child.name}}</td><td>{{child.age_group}}</td><td>{{child.denom_structure}}</td><td>{{parent_info.name}}</td>
+                    <tr><td>{{child.timestamp}}</td><td>{{child.name}}</td><td>{{child.age_group}}</td><td>{{child.denom_structure}}</td><td>{{parent_info.name}}</td>
                         {% if parent_pop_trans.pop_image %}<td>Yes</td>{% else %}<td>No</td>{% endif %}<td>{{parent_info.church_local}}</td><td>{{parent_info.church_circuit}}</td>
                         <td>{{parent_info.church_region}}</td></tr>
                 {% endif %}
