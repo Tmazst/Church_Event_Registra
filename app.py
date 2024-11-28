@@ -1124,7 +1124,7 @@ def google_signin():
             db.session.add(user1)
             db.session.commit()
 
-            #Log in user
+            #Login user
             usr_obj = User.query.filter_by(email=usr_email).first()
             login_user(usr_obj)
 
