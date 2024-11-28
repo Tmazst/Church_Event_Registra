@@ -433,7 +433,7 @@ def add_children_form():
             #Processing many fields
             for key in list(request.form.keys()):
                 if key.startswith('child-'): 
-                    child = children(name=request.form.get(key),parent_id=current_user.id,denom_structure="Sunday School",age_group="Sunday School")
+                    child = children(name=request.form.get(key),parent_id=current_user.id,denom_structure="Sunday School",age_group="Sunday School",timestamp=datetime.now())
                     db.session.add(child)
 
         db.session.commit()

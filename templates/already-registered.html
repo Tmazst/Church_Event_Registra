@@ -51,9 +51,9 @@
                 <h5 style="text-align: left;">Children</h5>
                 <div style="justify-content: flex-start;flex-wrap: wrap;flex-direction:row;" class="general-flex">
                 {% for child in children %}
-                
-                    <div style="font-size:13px;width:max-content;" class="btns">{{child.name}}</div>
-                
+                    {% if child.name %}
+                        <div style="font-size:13px;width:max-content;" class="btns">{{child.name}}</div>
+                    {% endif %}
                 {% endfor %}
                 </div><br>
                 {% endif %}
